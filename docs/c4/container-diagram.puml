@@ -1,5 +1,5 @@
 @startuml container-diagram
-' C4 Level 2 - Container diagram (owner: P2). Matches docker-compose.yml and monitoring/.
+' C4 Level 2 - Container diagram. Matches docker-compose.yml and monitoring/.
 ' Render: paste into https://www.plantuml.com/plantuml  or  java -jar plantuml.jar -tpng container-diagram.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Container.puml
 
@@ -9,9 +9,9 @@ title Container diagram - Distributed AMQP Messaging Cluster (INFT6000 HW2)
 Person(ops, "Operator", "Team member running tests and watching the cluster")
 
 System_Boundary(sys, "Distributed AMQP Messaging Cluster") {
-  Container(prod, "Producer app", "Python 3, pika", "Multi-threaded publisher, publisher confirms, failover across 5672/5673/5674 (P3, producer/)")
-  Container(tools, "Management & benchmark tools", "bash, Python 3", "scripts/mgmt/* status + health check, benchmarks/run_bench.py + analyze.py (P2)")
-  Container(cons, "Consumer app", "Python 3, pika", "Multi-threaded consumer, manual acks, failover, writes received.csv (P4, consumer/)")
+  Container(prod, "Producer app", "Python 3, pika", "Multi-threaded publisher, publisher confirms, failover across 5672/5673/5674 (producer/)")
+  Container(tools, "Management & benchmark tools", "bash, Python 3", "scripts/mgmt/* status + health check, benchmarks/run_bench.py + analyze.py")
+  Container(cons, "Consumer app", "Python 3, pika", "Multi-threaded consumer, manual acks, failover, writes received.csv (consumer/)")
 
   Container(r1, "rabbit1", "RabbitMQ 3.13.7 (Erlang 26)", "Broker node. AMQP 5672, Management UI/API 15672, metrics 15692. Replica of hw2.orders")
   Container(r2, "rabbit2", "RabbitMQ 3.13.7 (Erlang 26)", "Broker node. AMQP 5672, Management UI/API 15672, metrics 15692. Replica of hw2.orders")

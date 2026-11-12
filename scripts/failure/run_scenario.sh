@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# Failure-injection scenarios for the 3-node RabbitMQ quorum cluster (owner: P1).
-# Each scenario records timestamps, the Raft leader before/after, and the time
-# needed to elect a new leader. Run the producer/consumer from P3/P4 in parallel
-# to produce the zero-data-loss proof (P4 compares sent vs. received IDs).
+# Failure-injection scenarios for the 3-node RabbitMQ quorum cluster.
+# Each scenario logs timestamps, the Raft leader before and after, and the
+# election time. scripts/p4/chaos_run.sh runs the same faults under load.
 #
 # Usage:
 #   ./run_scenario.sh follower-crash

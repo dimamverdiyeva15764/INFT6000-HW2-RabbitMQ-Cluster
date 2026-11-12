@@ -1,0 +1,23 @@
+{"ts":"2026-11-11T11:33:28.139+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T11:33:28.140+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T11:33:28.141+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T11:33:28.142+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T11:33:28.156+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T11:33:28.157+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"subscribed","consumer_id":"vm-8514-c3","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T11:33:28.159+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T11:33:28.160+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-8514-c4","host":"localhost:5674","prefetch":100}
+{"ts":"2026-11-11T11:33:28.200+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T11:33:28.201+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"subscribed","consumer_id":"vm-8514-c2","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T11:33:28.201+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T11:33:28.202+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"subscribed","consumer_id":"vm-8514-c1","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T11:34:13.159+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-4","event":"Unexpected connection close detected: AMQPHeartbeatTimeout: ('No activity or too many missed heartbeats in the last 10 seconds',)"}
+{"ts":"2026-11-11T11:34:13.159+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"consumer_reconnect","consumer_id":"vm-8514-c4","error":"AMQPHeartbeatTimeout: No activity or too many missed heartbeats in the last 10 seconds","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T11:34:13.159+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T11:34:13.167+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-4","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5673","reconnect_count":1}
+{"ts":"2026-11-11T11:34:13.167+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-8514-c4","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T11:35:02.643+00:00","level":"WARNING","component":"Consumer","thread":"MainThread","event":"shutdown_requested","signal":"SIGTERM"}
+{"ts":"2026-11-11T11:35:03.136+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"worker_finished","consumer_id":"vm-8514-c4"}
+{"ts":"2026-11-11T11:35:03.137+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"worker_finished","consumer_id":"vm-8514-c3"}
+{"ts":"2026-11-11T11:35:03.139+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"worker_finished","consumer_id":"vm-8514-c2"}
+{"ts":"2026-11-11T11:35:03.139+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"worker_finished","consumer_id":"vm-8514-c1"}
+{"ts":"2026-11-11T11:35:03.178+00:00","level":"INFO","component":"Consumer","thread":"MainThread","event":"run_finished","csv":"results/chaos/partition/run1/received.csv","summary":"results/chaos/partition/run1/consumer_summary.json","received":3604,"unique":3604,"duplicates":0,"redelivered":100,"out_of_order":0,"nacked":0,"reconnects":1,"elapsed_s":95.039,"errors":[],"status":"ok"}

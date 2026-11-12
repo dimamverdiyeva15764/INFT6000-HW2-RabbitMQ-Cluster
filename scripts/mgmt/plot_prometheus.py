@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Plot what Prometheus recorded during a time window (owner: P2).
+"""Plot what Prometheus recorded during a time window.
 
-Use it to turn a chaos or benchmark run into a figure for the report, from the same
+Use it to turn a chaos or benchmark run into a figure, from the same
 metrics the Grafana dashboards show:
   1. broker message rates (published, delivered, acknowledged)  - the dip and recovery
   2. RabbitMQ nodes up (scrape status)                           - which node was down
@@ -9,7 +9,7 @@ metrics the Grafana dashboards show:
 
 Usage:
   python3 scripts/mgmt/plot_prometheus.py --start 2026-11-11T11:30:00Z --end 2026-11-11T11:32:00Z \
-      --title "Leader crash, run 1" --out docs/evidence/p2-leader-crash-run1.png
+      --title "Leader crash, run 1" --out docs/evidence/leader-crash-run1.png
   python3 scripts/mgmt/plot_prometheus.py --run results/chaos/leader-crash/run1 --out ...
       (takes the window from the run's producer.log)
 Needs: matplotlib.  Prometheus at PROM_URL (default http://localhost:9090).

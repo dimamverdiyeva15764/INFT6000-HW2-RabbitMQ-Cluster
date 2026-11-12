@@ -1,5 +1,5 @@
 @startuml deployment-diagram
-' C4 Deployment diagram (P1, extended in QA with volumes and host port mappings).
+' C4 Deployment diagram, with volumes and host port mappings.
 ' Every port and volume is copied from docker-compose.yml.
 ' Render: java -jar plantuml.jar -tpng deployment-diagram.puml  (or https://www.plantuml.com/plantuml)
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Deployment.puml

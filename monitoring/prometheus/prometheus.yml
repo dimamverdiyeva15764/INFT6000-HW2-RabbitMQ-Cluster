@@ -1,20 +1,18 @@
-# Prometheus configuration - owner: P2 (monitoring)
-# Scrapes the 3 RabbitMQ nodes started by P1's docker-compose.yml
-# (rabbit1, rabbit2, rabbit3 on network amqp-net, rabbitmq_prometheus plugin on :15692).
+# Prometheus: scrapes the three RabbitMQ nodes (rabbit1-3 on network amqp-net,
+# rabbitmq_prometheus plugin on port 15692).
 
 global:
-  # 5 s matches the RabbitMQ stats refresh (collect_statistics_interval = 5 s)
-  # and the "scrape 15692 every 5s" label on P1's Deployment diagram.
+  # 5 s matches the RabbitMQ statistics interval (collect_statistics_interval = 5 s).
   scrape_interval: 5s
   scrape_timeout: 4s
   evaluation_interval: 5s
 
-# Alert rules (P2). The folder is mounted by docker-compose.yml.
+# Alert rules; the folder is mounted by docker-compose.yml.
 rule_files:
   - /etc/prometheus/rules/*.yml
 
 scrape_configs:
-  # Prometheus itself (lets us show the monitoring stack is healthy).
+  # Prometheus itself.
   - job_name: prometheus
     static_configs:
       - targets: ["localhost:9090"]

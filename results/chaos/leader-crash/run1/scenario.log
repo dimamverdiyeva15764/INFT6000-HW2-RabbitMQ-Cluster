@@ -1,0 +1,16 @@
+[2026-11-11T12:09:59.961Z] === S2: crash the LEADER node ===
+[2026-11-11T12:10:00.178Z] Current leader: rabbit@rabbit1
+[2026-11-11T12:10:00.233Z] Injecting fault: docker kill rabbit1
+[2026-11-11T12:10:01.290Z] New leader: rabbit@rabbit3  (election took 964 ms)
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      ['nodedown', 'rabbit@rabbit1']                                                                                
+rabbit@rabbit2      follower            voter               897472              897472              13                
+rabbit@rabbit3      leader              voter               897473              897472              13                
+[2026-11-11T12:10:02.939Z] Recovery: docker start rabbit1 (rejoins as follower, replays Raft log)
+[2026-11-11T12:10:03.045Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T12:10:17.812Z] Cluster is whole again.
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      follower            voter               907038              907038              13                
+rabbit@rabbit2      follower            voter               907038              907038              13                
+rabbit@rabbit3      leader              voter               907038              907038              13                
+[2026-11-11T12:10:19.958Z] Scenario finished. Log: results/failure_20261111T120959Z.log

@@ -1,6 +1,5 @@
 # INFT 6000 - HW2 - Distributed AMQP Messaging Cluster
-# Owner of this file: P1 (cluster services). P2 owns the monitoring services
-# (prometheus, grafana) and their configuration under ./monitoring.
+# Three RabbitMQ nodes plus Prometheus and Grafana (configuration in ./monitoring).
 #
 # Usage:  ./scripts/up.sh      (or: docker compose up -d)
 
@@ -71,7 +70,7 @@ services:
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
       - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
 
-  # ---- Monitoring (configuration files are owned by P2) ----
+  # ---- Monitoring ----
   prometheus:
     image: prom/prometheus:v2.53.0
     container_name: prometheus
@@ -80,7 +79,7 @@ services:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - ./monitoring/prometheus/rules:/etc/prometheus/rules:ro   # P2: alert rules
+      - ./monitoring/prometheus/rules:/etc/prometheus/rules:ro   # alert rules
       - prometheus_data:/prometheus
     depends_on:
       rabbit1:
@@ -97,7 +96,7 @@ services:
     environment:
       GF_SECURITY_ADMIN_USER: "${GRAFANA_USER:-admin}"
       GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_PASS:-admin}"
-      # P2: open the HW2 dashboard as the home page; no sign-up.
+      # Open the HW2 dashboard as the home page; no sign-up.
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/hw2-overview.json
       GF_USERS_ALLOW_SIGN_UP: "false"
     volumes:

@@ -1,7 +1,7 @@
 {
   "uid": "hw2-overview",
   "title": "HW2 - RabbitMQ cluster overview",
-  "description": "INFT6000 HW2 (P2): node health, message rates, queue depth, Raft state and alerts.",
+  "description": "INFT6000 HW2: node health, message rates, queue depth, Raft state and alerts.",
   "tags": [
     "hw2",
     "rabbitmq"

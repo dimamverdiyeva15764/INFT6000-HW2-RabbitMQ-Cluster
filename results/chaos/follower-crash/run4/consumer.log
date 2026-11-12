@@ -1,0 +1,53 @@
+{"ts":"2026-11-11T12:26:07.106+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T12:26:07.107+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T12:26:07.108+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T12:26:07.110+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T12:26:07.124+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T12:26:07.126+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T12:26:07.126+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T12:26:07.127+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"subscribed","consumer_id":"vm-2011-c1","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T12:26:07.128+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T12:26:07.129+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"subscribed","consumer_id":"vm-2011-c2","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T12:26:07.129+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-2011-c4","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T12:26:07.130+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"subscribed","consumer_id":"vm-2011-c3","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T12:26:27.692+00:00","level":"ERROR","component":"pika.adapters.utils.io_services_utils","thread":"consumer-2","event":"Socket EOF; <socket.socket fd=18, family=2, type=1, proto=6, laddr=('127.0.0.1', 54250), raddr=('127.0.0.1', 5673)>"}
+{"ts":"2026-11-11T12:26:27.693+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-2","event":"Transport indicated EOF."}
+{"ts":"2026-11-11T12:26:27.693+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-2","event":"connection_lost: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.694+00:00","level":"ERROR","component":"pika.adapters.utils.io_services_utils","thread":"consumer-1","event":"Socket EOF; <socket.socket fd=16, family=2, type=1, proto=6, laddr=('127.0.0.1', 54222), raddr=('127.0.0.1', 5673)>"}
+{"ts":"2026-11-11T12:26:27.695+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-1","event":"Transport indicated EOF."}
+{"ts":"2026-11-11T12:26:27.694+00:00","level":"ERROR","component":"pika.adapters.utils.io_services_utils","thread":"consumer-4","event":"Socket EOF; <socket.socket fd=17, family=2, type=1, proto=6, laddr=('127.0.0.1', 54232), raddr=('127.0.0.1', 5673)>"}
+{"ts":"2026-11-11T12:26:27.695+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-4","event":"Transport indicated EOF."}
+{"ts":"2026-11-11T12:26:27.695+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-4","event":"connection_lost: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.695+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-4","event":"Unexpected connection close detected: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.695+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"consumer_reconnect","consumer_id":"vm-2011-c4","error":"StreamLostError: Transport indicated EOF","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:26:27.695+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:26:27.694+00:00","level":"ERROR","component":"pika.adapters.utils.io_services_utils","thread":"consumer-3","event":"Socket EOF; <socket.socket fd=19, family=2, type=1, proto=6, laddr=('127.0.0.1', 54242), raddr=('127.0.0.1', 5673)>"}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-3","event":"Transport indicated EOF."}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-3","event":"connection_lost: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-3","event":"Unexpected connection close detected: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"WARNING","component":"Consumer","thread":"consumer-3","event":"consumer_reconnect","consumer_id":"vm-2011-c3","error":"StreamLostError: Transport indicated EOF","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-2","event":"Unexpected connection close detected: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.699+00:00","level":"WARNING","component":"Consumer","thread":"consumer-2","event":"consumer_reconnect","consumer_id":"vm-2011-c2","error":"StreamLostError: Transport indicated EOF","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:26:27.699+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:26:27.697+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-1","event":"connection_lost: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.701+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-1","event":"Unexpected connection close detected: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T12:26:27.705+00:00","level":"WARNING","component":"Consumer","thread":"consumer-1","event":"consumer_reconnect","consumer_id":"vm-2011-c1","error":"StreamLostError: Transport indicated EOF","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:26:27.706+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:26:27.728+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-4","event":"connection_reestablished","previous_host":"localhost:5673","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:26:27.729+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-3","event":"connection_reestablished","previous_host":"localhost:5673","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:26:27.730+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-2","event":"connection_reestablished","previous_host":"localhost:5673","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:26:27.731+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-2011-c4","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:26:27.731+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"subscribed","consumer_id":"vm-2011-c3","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:26:27.733+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-1","event":"connection_reestablished","previous_host":"localhost:5673","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:26:27.734+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"subscribed","consumer_id":"vm-2011-c2","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:26:27.736+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"subscribed","consumer_id":"vm-2011-c1","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:26:27.740+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"duplicate","msg_id":"vm-2031-t2-1673","redelivered":true}
+{"ts":"2026-11-11T12:26:27.742+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"duplicate","msg_id":"vm-2031-t1-1669","redelivered":true}
+{"ts":"2026-11-11T12:26:27.744+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"duplicate","msg_id":"vm-2031-t4-1668","redelivered":false}
+{"ts":"2026-11-11T12:27:15.923+00:00","level":"WARNING","component":"Consumer","thread":"MainThread","event":"shutdown_requested","signal":"SIGTERM"}
+{"ts":"2026-11-11T12:27:16.163+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"worker_finished","consumer_id":"vm-2011-c2"}
+{"ts":"2026-11-11T12:27:16.164+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"worker_finished","consumer_id":"vm-2011-c3"}
+{"ts":"2026-11-11T12:27:16.166+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"worker_finished","consumer_id":"vm-2011-c4"}
+{"ts":"2026-11-11T12:27:16.167+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"worker_finished","consumer_id":"vm-2011-c1"}
+{"ts":"2026-11-11T12:27:16.174+00:00","level":"INFO","component":"Consumer","thread":"MainThread","event":"run_finished","csv":"results/chaos/follower-crash/run4/received.csv","summary":"results/chaos/follower-crash/run4/consumer_summary.json","received":21974,"unique":21971,"duplicates":3,"redelivered":3,"out_of_order":0,"nacked":0,"reconnects":4,"elapsed_s":69.068,"errors":[],"status":"ok"}

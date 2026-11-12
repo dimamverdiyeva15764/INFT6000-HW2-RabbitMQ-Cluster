@@ -1,4 +1,4 @@
-# C4 Level 1 - System Context (P4)
+# C4 Level 1 - System Context
 
 Who and what interacts with the **AMQP Messaging Cluster**. Every box below is a real, runnable
 part of this repository, so the diagram can be checked against the code (rubric: "precisely align
@@ -84,7 +84,7 @@ flowchart LR
 @startuml context-diagram
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Context.puml
 
-title C4 System Context - Distributed AMQP Messaging Cluster (P4)
+title C4 System Context - Distributed AMQP Messaging Cluster
 
 Person(operator, "Operator", "Starts the cluster, runs tests, injects faults, reads dashboards")
 

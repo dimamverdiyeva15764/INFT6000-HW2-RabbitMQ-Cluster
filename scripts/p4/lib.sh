@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Helpers shared by the P4 scripts (consumer / validation). Source, do not run.
+# Helpers shared by the scripts in scripts/p4/. Source, do not run.
 # shellcheck source=scripts/common.sh
 source "$(dirname "${BASH_SOURCE[0]}")/../common.sh"
 
@@ -53,7 +53,7 @@ wait_depth() {
   echo "${d:-unknown}"; return 1
 }
 
-# Stop a background consumer with SIGTERM and wait for its clean exit (<= 30 s by contract).
+# Stop a background consumer with SIGTERM and wait for its clean exit (<= 30 s).
 stop_consumer() {
   local pid="$1"
   kill -TERM "$pid" 2>/dev/null || true

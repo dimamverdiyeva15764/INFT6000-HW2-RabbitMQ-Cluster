@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# P4 smoke test (no faults): publish N messages, consume them all, validate.
+# Smoke test (no faults): publish N messages, consume them all, validate.
 # Usage: ./scripts/p4/smoke.sh [messages_per_thread=2500]
 set -uo pipefail
 source "$(dirname "$0")/lib.sh"

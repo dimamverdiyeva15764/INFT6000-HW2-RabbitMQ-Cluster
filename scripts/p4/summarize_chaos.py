@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build the report's data-integrity table (section 8.5) from raw chaos results.
+"""Build the data-integrity table from raw chaos results.
 
 Reads results/chaos/<scenario>/run<k>/{validation.json, producer_summary.json, consumer_summary.json}
 and prints a Markdown table (one row per scenario x run). Never edits raw files.
 
-Usage: python3 scripts/p4/summarize_chaos.py [results/chaos] [> docs/evidence/p4-data-integrity.md]
+Usage: python3 scripts/p4/summarize_chaos.py [results/chaos] [> docs/evidence/data-integrity.md]
 """
 import json
 import sys

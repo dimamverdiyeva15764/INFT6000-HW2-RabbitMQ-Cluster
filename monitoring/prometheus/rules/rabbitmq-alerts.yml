@@ -1,4 +1,4 @@
-# Alert rules for the 3-node RabbitMQ cluster - owner: P2 (monitoring)
+# Alert rules for the 3-node RabbitMQ cluster.
 # Loaded by prometheus.yml (rule_files: /etc/prometheus/rules/*.yml).
 # View them at http://localhost:9090/alerts . No Alertmanager is deployed:
 # the rules are evaluated and shown in Prometheus and in the Grafana HW2 dashboard.
@@ -9,7 +9,7 @@ groups:
     rules:
       - alert: RabbitMQNodeDown
         expr: up{job="rabbitmq"} == 0
-        for: 5s     # two failed scrapes; P1's chaos scripts keep a node down ~10 s
+        for: 5s     # two failed scrapes; a killed node stays down about 10 s in our tests
         labels:
           severity: critical
         annotations:

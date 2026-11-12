@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""End-to-end check of the monitoring stack (the HW2 bonus) - owner: P2.
+"""End-to-end check of the monitoring stack (Prometheus and Grafana).
 
 It proves more than "the containers are running":
   1. Prometheus is ready and all 7 scrape targets are UP.

@@ -1,4 +1,4 @@
-# Dashboard provider - owner: P2. Loads every *.json in the folder that
+# Dashboard provider. Loads every *.json in the folder that
 # docker-compose.yml mounts at /var/lib/grafana/dashboards.
 apiVersion: 1
 providers:

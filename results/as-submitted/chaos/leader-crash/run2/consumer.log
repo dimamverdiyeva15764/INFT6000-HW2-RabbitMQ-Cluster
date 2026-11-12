@@ -1,0 +1,26 @@
+{"ts":"2026-11-11T11:30:46.655+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T11:30:46.656+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T11:30:46.657+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T11:30:46.658+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T11:30:46.679+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T11:30:46.679+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connected","host":"localhost:5672","vhost":"/"}
+{"ts":"2026-11-11T11:30:46.679+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-6216-c4","host":"localhost:5674","prefetch":100}
+{"ts":"2026-11-11T11:30:46.680+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"subscribed","consumer_id":"vm-6216-c1","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T11:30:46.716+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T11:30:46.717+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"subscribed","consumer_id":"vm-6216-c2","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T11:30:46.721+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T11:30:46.722+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"subscribed","consumer_id":"vm-6216-c3","host":"localhost:5673","prefetch":100}
+{"ts":"2026-11-11T11:31:05.653+00:00","level":"ERROR","component":"pika.adapters.utils.io_services_utils","thread":"consumer-4","event":"Socket EOF; <socket.socket fd=19, family=2, type=1, proto=6, laddr=('127.0.0.1', 50388), raddr=('127.0.0.1', 5674)>"}
+{"ts":"2026-11-11T11:31:05.653+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-4","event":"Transport indicated EOF."}
+{"ts":"2026-11-11T11:31:05.654+00:00","level":"ERROR","component":"pika.adapters.base_connection","thread":"consumer-4","event":"connection_lost: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T11:31:05.656+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-4","event":"Unexpected connection close detected: StreamLostError: ('Transport indicated EOF',)"}
+{"ts":"2026-11-11T11:31:05.656+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"consumer_reconnect","consumer_id":"vm-6216-c4","error":"StreamLostError: Transport indicated EOF","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T11:31:05.662+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T11:31:05.712+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-4","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T11:31:05.713+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-6216-c4","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T11:31:55.339+00:00","level":"WARNING","component":"Consumer","thread":"MainThread","event":"shutdown_requested","signal":"SIGTERM"}
+{"ts":"2026-11-11T11:31:55.718+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"worker_finished","consumer_id":"vm-6216-c3"}
+{"ts":"2026-11-11T11:31:55.728+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"worker_finished","consumer_id":"vm-6216-c4"}
+{"ts":"2026-11-11T11:31:55.746+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"worker_finished","consumer_id":"vm-6216-c1"}
+{"ts":"2026-11-11T11:31:55.752+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"worker_finished","consumer_id":"vm-6216-c2"}
+{"ts":"2026-11-11T11:31:56.222+00:00","level":"INFO","component":"Consumer","thread":"MainThread","event":"run_finished","csv":"results/chaos/leader-crash/run2/received.csv","summary":"results/chaos/leader-crash/run2/consumer_summary.json","received":10298,"unique":10298,"duplicates":0,"redelivered":1,"out_of_order":0,"nacked":0,"reconnects":1,"elapsed_s":69.567,"errors":[],"status":"ok"}

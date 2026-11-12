@@ -1,4 +1,4 @@
-"""Zero-data-loss validator (owner: P4).
+"""Zero-data-loss validator.
 
 Joins what the producer got publisher-confirms for (``confirmed.csv``) with
 what the consumer actually received (``received.csv``) and reports:

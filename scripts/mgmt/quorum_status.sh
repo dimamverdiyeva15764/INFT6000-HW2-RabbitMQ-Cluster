@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Raft leader / members of every hw2.* quorum queue (owner: P2).
+# Raft leader and members of every hw2.* quorum queue.
 # Usage: ./scripts/mgmt/quorum_status.sh            (all queues matching ^hw2\.)
 #        QUEUE_PATTERN='^hw2\.orders$' ./scripts/mgmt/quorum_status.sh
-# Works with macOS's default bash 3.2.
+# Works with bash 3.2.
 set -euo pipefail
 NODES="rabbit1 rabbit2 rabbit3"
 QUEUE_PATTERN="${QUEUE_PATTERN:-^hw2\.}"

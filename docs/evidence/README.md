@@ -1,18 +1,13 @@
-# Evidence screenshots
+# Evidence
 
-Put these 10 files in this folder (names must match exactly; they are referenced from `../failure-test-plan.md`):
+| File | What it shows | Environment |
+|---|---|---|
+| `docker/docker-mgmt-check.png` | `mgmt_check.py`: 3 nodes running, no alarms or partitions, `hw2.orders` quorum with 3/3 members, HEALTHY | Docker Compose |
+| `docker/docker-prometheus-targets.png` | Prometheus targets page: 7 of 7 targets UP | Docker Compose |
+| `docker/docker-grafana-message-flow.png`, `docker/docker-grafana-queue.png` | Grafana HW2 dashboard during a message-processing run: message rates, per-node traffic, queue depth, consumers | Docker Compose |
+| `docker/docker-check-monitoring.png` | `check_monitoring.py`: targets, alert rules, metrics, Grafana data source and dashboards, all panel queries; PASS | Docker Compose |
+| `fig-*.png` | Prometheus plots of chaos runs (message rates, nodes up, Raft term), made with `scripts/mgmt/plot_prometheus.py` | Native test cluster |
+| `native-leadercrash-run5-*.png` | Leader crash run 5: Raft status before and after (rabbit2 to rabbit1, term 25 to 26) and validator output (21,810 confirmed, 0 lost) | Native test cluster |
+| `data-integrity.md` | One row per chaos run: confirmed, lost, duplicates, reconnects (`scripts/p4/summarize_chaos.py`) | Native test cluster |
 
-| File | Content |
-|---|---|
-| 01-up-ready.png | Terminal: `up.sh` finished, quorum_status table |
-| 02-ui-nodes.png | UI Overview -> Nodes: 3 nodes green |
-| 03-ui-queues.png | UI Queues: `hw2.orders`, type quorum |
-| 04-ui-queue-leader-before.png | `hw2.orders` page: leader + 3 members |
-| 05-ui-node-down.png | Leader node down (S2) |
-| 06-ui-recovered.png | 3 nodes green again (S2) |
-| 07-ui-partition.png | Node isolated (S3) |
-| 08-ui-partition-healed.png | Partition healed (S3) |
-| 09-log-leader-crash.png | Terminal: leader-crash output (election time) |
-| 10-log-partition.png | Terminal: partition scenario output |
-
-Check that nothing is missing: `./scripts/check_evidence.sh`
+Raw data for all of these is in `results/`.

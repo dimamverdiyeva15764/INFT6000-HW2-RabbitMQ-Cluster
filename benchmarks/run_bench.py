@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Benchmark runner (owner: P2).
+"""Benchmark runner.
 
 For every scenario x repetition in benchmarks/scenarios.yaml:
   1. waits until all 3 nodes run and hw2.orders has 3/3 members online
   2. purges hw2.orders (so every run starts from an empty queue)
-  3. starts P4's consumer, then P3's producer (commands from scenarios.yaml / docs/CONTRACT.md)
+  3. starts the consumer, then the producer (commands from scenarios.yaml / docs/CONTRACT.md)
   4. after the producer exits, waits until the queue is drained, then stops the consumer with SIGINT
   5. asks Prometheus for the broker-side rates during the run (independent of the client CSVs)
   6. saves everything to benchmarks/results/raw/<scenario>/rep<k>/  (never overwritten)

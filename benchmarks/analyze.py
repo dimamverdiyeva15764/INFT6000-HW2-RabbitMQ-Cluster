@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Benchmark analysis (owner: P2).
+"""Benchmark analysis.
 
 Reads every run in benchmarks/results/raw/<scenario>/rep<k>/ (written by run_bench.py) and writes:
   benchmarks/results/summary_runs.csv       one row per run
   benchmarks/results/summary_scenarios.csv  mean and std over the repetitions
-  benchmarks/results/summary.md             the same as a Markdown table (for the report)
-  benchmarks/results/fig_*.png              charts for report section 9
+  benchmarks/results/summary.md             the same as a Markdown table
+  benchmarks/results/fig_*.png              charts
 
 Definitions (measurement window = [first send + warmup, last send]):
   publish throughput  = confirmed messages sent inside the window / window length      (msg/s)
@@ -13,7 +13,7 @@ Definitions (measurement window = [first send + warmup, last send]):
   end-to-end latency  = recv_ts_ns - sent_ts_ns of the FIRST delivery of each message  (ms)
   confirm latency     = confirm_ts_ns - sent_ts_ns                                       (ms)
   broker publish rate = mean of sum(rate(rabbitmq_global_messages_received_total)) from Prometheus
-Loss and ordering are NOT judged here - that is P4's validator (consumer/validate.py).
+Loss and ordering are not judged here; that is the job of consumer/validate.py.
 """
 import argparse
 import glob
@@ -26,7 +26,7 @@ import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NS = 1e9
 
-# Chart styling: light surface, categorical slots 1-3, 2 px lines, 8 px markers with a surface ring.
+# Chart style shared by all figures.
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 C = ["#2a78d6", "#eb6834", "#1baf7a"]
 

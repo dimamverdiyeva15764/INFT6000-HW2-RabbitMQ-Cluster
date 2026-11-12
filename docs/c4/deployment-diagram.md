@@ -1,4 +1,4 @@
-# C4 Level 4 - Deployment Diagram (owner: P1)
+# C4 Level 4 - Deployment Diagram
 
 Shows the network topology, designated ports, and persistent volume mappings of the stack defined in `docker-compose.yml`. Render with any Mermaid viewer (GitHub renders it automatically) or paste the PlantUML version into https://www.plantuml.com/plantuml.
 
@@ -41,8 +41,8 @@ flowchart TB
         VG[("Volume grafana_data<br/>/var/lib/grafana")]
     end
 
-    PROD["Producer client (P3)"]
-    CONS["Consumer client (P4)"]
+    PROD["Producer client"]
+    CONS["Consumer client"]
     OPS["Operator (browser)"]
 
     A1 <-->|"Erlang dist. 25672<br/>Raft replication"| A2

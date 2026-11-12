@@ -1,4 +1,4 @@
-# Unit tests for the alert rules (owner: P2).
+# Unit tests for the alert rules.
 # Run:  docker run --rm -v "$PWD/monitoring/prometheus:/p" --entrypoint promtool \
 #         prom/prometheus:v2.53.0 test rules /p/tests/rabbitmq-alerts.test.yml
 rule_files:

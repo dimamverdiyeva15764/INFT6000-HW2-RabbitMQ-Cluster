@@ -1,0 +1,14 @@
+[2026-11-11T13:40:27.584Z] == quorum-loss run 3: 60 s of load, two nodes down for 20 s ==
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      follower            voter               3649361             3649359             30                
+rabbit@rabbit2      leader              voter               3649361             3649360             30                
+rabbit@rabbit3      follower            voter               3649361             3649360             30                
+[2026-11-11T13:40:49.894Z] Injecting fault: docker kill rabbit2 rabbit3 (majority lost)
+[2026-11-11T13:41:10.954Z] Depth seen while majority is down: unavailable
+[2026-11-11T13:41:10.975Z] Recovery: docker start rabbit2 rabbit3
+[2026-11-11T13:41:22.066Z] Cluster is whole again.
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      follower            voter               3649536             3649536             31                
+rabbit@rabbit2      follower            voter               3649536             3649536             31                
+rabbit@rabbit3      leader              voter               3649536             3649536             31                
+[2026-11-11T13:41:31.632Z] Producer exit 0

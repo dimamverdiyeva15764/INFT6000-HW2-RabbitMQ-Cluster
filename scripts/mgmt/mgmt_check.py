@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Health check of the RabbitMQ cluster through the Management HTTP API (owner: P2).
+"""Health check of the RabbitMQ cluster through the Management HTTP API.
 
 Asks the first node whose API answers (host ports 15672, 15673, 15674), so it keeps
 working when a node is down. Prints node health and the Raft leader/members of each
@@ -7,7 +7,7 @@ hw2.* queue, and exits with status 1 if anything is unhealthy:
   - a node not running, a network partition, a memory or disk alarm
   - a quorum queue with fewer online members than members, or no leader
 
-Only the Python standard library is used (works with the macOS system python3).
+Only the Python standard library is used.
 
 Usage:
   python3 scripts/mgmt/mgmt_check.py

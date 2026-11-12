@@ -1,0 +1,41 @@
+{"ts":"2026-11-11T12:36:17.387+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T12:36:17.388+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T12:36:17.389+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T12:36:17.391+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T12:36:17.406+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T12:36:17.406+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T12:36:17.409+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T12:36:17.409+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-9918-c4","host":"localhost:5674","prefetch":100}
+{"ts":"2026-11-11T12:36:17.410+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"subscribed","consumer_id":"vm-9918-c3","host":"localhost:5674","prefetch":100}
+{"ts":"2026-11-11T12:36:17.411+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"subscribed","consumer_id":"vm-9918-c1","host":"localhost:5674","prefetch":100}
+{"ts":"2026-11-11T12:36:17.411+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T12:36:17.413+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"subscribed","consumer_id":"vm-9918-c2","host":"localhost:5674","prefetch":100}
+{"ts":"2026-11-11T12:37:02.407+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-4","event":"Unexpected connection close detected: AMQPHeartbeatTimeout: ('No activity or too many missed heartbeats in the last 10 seconds',)"}
+{"ts":"2026-11-11T12:37:02.407+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-3","event":"Unexpected connection close detected: AMQPHeartbeatTimeout: ('No activity or too many missed heartbeats in the last 10 seconds',)"}
+{"ts":"2026-11-11T12:37:02.407+00:00","level":"WARNING","component":"Consumer","thread":"consumer-3","event":"consumer_reconnect","consumer_id":"vm-9918-c3","error":"AMQPHeartbeatTimeout: No activity or too many missed heartbeats in the last 10 seconds","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:37:02.407+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-3","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:37:02.409+00:00","level":"WARNING","component":"Consumer","thread":"consumer-4","event":"consumer_reconnect","consumer_id":"vm-9918-c4","error":"AMQPHeartbeatTimeout: No activity or too many missed heartbeats in the last 10 seconds","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:37:02.410+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-4","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:37:02.411+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-1","event":"Unexpected connection close detected: AMQPHeartbeatTimeout: ('No activity or too many missed heartbeats in the last 10 seconds',)"}
+{"ts":"2026-11-11T12:37:02.411+00:00","level":"WARNING","component":"Consumer","thread":"consumer-1","event":"consumer_reconnect","consumer_id":"vm-9918-c1","error":"AMQPHeartbeatTimeout: No activity or too many missed heartbeats in the last 10 seconds","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:37:02.411+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-1","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:37:02.416+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"consumer-2","event":"Unexpected connection close detected: AMQPHeartbeatTimeout: ('No activity or too many missed heartbeats in the last 10 seconds',)"}
+{"ts":"2026-11-11T12:37:02.419+00:00","level":"WARNING","component":"Consumer","thread":"consumer-2","event":"consumer_reconnect","consumer_id":"vm-9918-c2","error":"AMQPHeartbeatTimeout: No activity or too many missed heartbeats in the last 10 seconds","reply_code":null,"attempt":1}
+{"ts":"2026-11-11T12:37:02.419+00:00","level":"INFO","component":"ConnectionManager","thread":"consumer-2","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:37:02.432+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-3","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:37:02.433+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-2","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:37:02.434+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-1","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:37:02.434+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"subscribed","consumer_id":"vm-9918-c3","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:37:02.436+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"subscribed","consumer_id":"vm-9918-c2","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:37:02.436+00:00","level":"WARNING","component":"ConnectionManager","thread":"consumer-4","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:37:02.436+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"subscribed","consumer_id":"vm-9918-c1","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:37:02.439+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"subscribed","consumer_id":"vm-9918-c4","host":"localhost:5672","prefetch":100}
+{"ts":"2026-11-11T12:37:41.548+00:00","level":"WARNING","component":"Consumer","thread":"consumer-3","event":"duplicate","msg_id":"vm-9939-t2-1711","redelivered":true}
+{"ts":"2026-11-11T12:37:41.563+00:00","level":"WARNING","component":"Consumer","thread":"consumer-3","event":"duplicate","msg_id":"vm-9939-t4-1721","redelivered":true}
+{"ts":"2026-11-11T12:37:41.578+00:00","level":"WARNING","component":"Consumer","thread":"consumer-3","event":"duplicate","msg_id":"vm-9939-t3-1714","redelivered":true}
+{"ts":"2026-11-11T12:38:05.450+00:00","level":"WARNING","component":"Consumer","thread":"MainThread","event":"shutdown_requested","signal":"SIGTERM"}
+{"ts":"2026-11-11T12:38:05.577+00:00","level":"INFO","component":"Consumer","thread":"consumer-4","event":"worker_finished","consumer_id":"vm-9918-c4"}
+{"ts":"2026-11-11T12:38:05.599+00:00","level":"INFO","component":"Consumer","thread":"consumer-2","event":"worker_finished","consumer_id":"vm-9918-c2"}
+{"ts":"2026-11-11T12:38:05.627+00:00","level":"INFO","component":"Consumer","thread":"consumer-1","event":"worker_finished","consumer_id":"vm-9918-c1"}
+{"ts":"2026-11-11T12:38:05.631+00:00","level":"INFO","component":"Consumer","thread":"consumer-3","event":"worker_finished","consumer_id":"vm-9918-c3"}
+{"ts":"2026-11-11T12:38:05.959+00:00","level":"INFO","component":"Consumer","thread":"MainThread","event":"run_finished","csv":"results/chaos/partition/run5/received.csv","summary":"results/chaos/partition/run5/consumer_summary.json","received":12823,"unique":12820,"duplicates":3,"redelivered":400,"out_of_order":0,"nacked":0,"reconnects":4,"elapsed_s":108.572,"errors":[],"status":"ok"}

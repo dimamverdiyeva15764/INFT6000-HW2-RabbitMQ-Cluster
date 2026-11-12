@@ -1,0 +1,25 @@
+{"ts":"2026-11-11T12:13:46.972+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-1","event":"connection_attempt","host":"localhost","port":5674,"vhost":"/"}
+{"ts":"2026-11-11T12:13:46.972+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-2","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:13:46.973+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-3","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T12:13:46.975+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-4","event":"connection_attempt","host":"localhost","port":5673,"vhost":"/"}
+{"ts":"2026-11-11T12:13:46.992+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-1","event":"connected","host":"localhost:5674","vhost":"/"}
+{"ts":"2026-11-11T12:13:46.993+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-4","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T12:13:46.994+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-3","event":"connected","host":"localhost:5673","vhost":"/"}
+{"ts":"2026-11-11T12:13:46.994+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-2","event":"connected","host":"localhost:5672","vhost":"/"}
+{"ts":"2026-11-11T12:13:47.001+00:00","level":"INFO","component":"Producer","thread":"producer-1","event":"publish_confirmed","msg_id":"vm-26308-t1-1","producer_id":"vm-26308-t1","seq":1,"confirmed":1,"confirm_latency_ms":5.143}
+{"ts":"2026-11-11T12:13:49.570+00:00","level":"INFO","component":"Producer","thread":"producer-2","event":"publish_confirmed","msg_id":"vm-26308-t2-249","producer_id":"vm-26308-t2","seq":249,"confirmed":1000,"confirm_latency_ms":2.114}
+{"ts":"2026-11-11T12:13:52.113+00:00","level":"INFO","component":"Producer","thread":"producer-1","event":"publish_confirmed","msg_id":"vm-26308-t1-503","producer_id":"vm-26308-t1","seq":503,"confirmed":2000,"confirm_latency_ms":3.589}
+{"ts":"2026-11-11T12:13:54.640+00:00","level":"INFO","component":"Producer","thread":"producer-3","event":"publish_confirmed","msg_id":"vm-26308-t3-749","producer_id":"vm-26308-t3","seq":749,"confirmed":3000,"confirm_latency_ms":3.212}
+{"ts":"2026-11-11T12:13:57.179+00:00","level":"INFO","component":"Producer","thread":"producer-4","event":"publish_confirmed","msg_id":"vm-26308-t4-997","producer_id":"vm-26308-t4","seq":997,"confirmed":4000,"confirm_latency_ms":3.873}
+{"ts":"2026-11-11T12:13:59.770+00:00","level":"INFO","component":"Producer","thread":"producer-4","event":"publish_confirmed","msg_id":"vm-26308-t4-1246","producer_id":"vm-26308-t4","seq":1246,"confirmed":5000,"confirm_latency_ms":2.888}
+{"ts":"2026-11-11T12:14:02.429+00:00","level":"INFO","component":"Producer","thread":"producer-3","event":"publish_confirmed","msg_id":"vm-26308-t3-1496","producer_id":"vm-26308-t3","seq":1496,"confirmed":6000,"confirm_latency_ms":10.016}
+{"ts":"2026-11-11T12:14:18.237+00:00","level":"INFO","component":"Producer","thread":"producer-3","event":"publish_confirmed","msg_id":"vm-26308-t3-1754","producer_id":"vm-26308-t3","seq":1754,"confirmed":7000,"confirm_latency_ms":2.901}
+{"ts":"2026-11-11T12:14:32.000+00:00","level":"ERROR","component":"pika.adapters.blocking_connection","thread":"producer-1","event":"Unexpected connection close detected: AMQPHeartbeatTimeout: ('No activity or too many missed heartbeats in the last 10 seconds',)"}
+{"ts":"2026-11-11T12:14:32.001+00:00","level":"WARNING","component":"Producer","thread":"producer-1","event":"publish_retry","msg_id":"vm-26308-t1-1744","retry":1,"error":"No activity or too many missed heartbeats in the last 10 seconds"}
+{"ts":"2026-11-11T12:14:32.001+00:00","level":"INFO","component":"ConnectionManager","thread":"producer-1","event":"connection_attempt","host":"localhost","port":5672,"vhost":"/"}
+{"ts":"2026-11-11T12:14:32.009+00:00","level":"WARNING","component":"ConnectionManager","thread":"producer-1","event":"connection_reestablished","previous_host":"localhost:5674","host":"localhost:5672","reconnect_count":1}
+{"ts":"2026-11-11T12:14:47.021+00:00","level":"INFO","component":"Producer","thread":"producer-1","event":"worker_finished","producer_id":"vm-26308-t1","sent":1802}
+{"ts":"2026-11-11T12:14:47.053+00:00","level":"INFO","component":"Producer","thread":"producer-2","event":"worker_finished","producer_id":"vm-26308-t2","sent":1866}
+{"ts":"2026-11-11T12:14:47.073+00:00","level":"INFO","component":"Producer","thread":"producer-4","event":"worker_finished","producer_id":"vm-26308-t4","sent":1863}
+{"ts":"2026-11-11T12:14:47.076+00:00","level":"INFO","component":"Producer","thread":"producer-3","event":"worker_finished","producer_id":"vm-26308-t3","sent":1867}
+{"ts":"2026-11-11T12:14:47.080+00:00","level":"INFO","component":"Producer","thread":"MainThread","event":"run_finished","status":"ok","sent":7398,"confirmed":7398,"nacked":0,"republished":1,"reconnects":1,"csv":"results/chaos/partition/run1/confirmed.csv","summary":"results/chaos/partition/run1/producer_summary.json"}

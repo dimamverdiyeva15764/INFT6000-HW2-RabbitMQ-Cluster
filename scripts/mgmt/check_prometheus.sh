@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Verify the Prometheus side of the monitoring stack (owner: P2).
+# Verify the Prometheus side of the monitoring stack:
 #   1. every scrape target is UP
 #   2. one rabbitmq_identity_info series per node (needed by the Grafana joins)
 #   3. per-queue metrics for hw2.orders arrive, and from which node(s)

@@ -1,0 +1,29 @@
+[2026-10-23T07:33:51.645Z] === S3: network partition - isolate ONE node (minority side) ===
+[2026-10-23T07:33:51.702Z] Leader before partition: rabbit@rabbit3
+[2026-10-23T07:33:51.704Z] Injecting fault: docker network disconnect amqp-net rabbit3
+[2026-10-23T07:34:53.794Z] Leader seen from majority side: rabbit@rabbit3
+[2026-10-23T07:34:54.869Z] Nodes running (majority view): 2 (expected 2)
+Status of quorum queue hw2.orders on node rabbit@rabbit1 ...
+(0lqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqwqqqqqqqqqqqqqqqqqk(B
+(0x(B [1mNode Name[0m      (0x(B [1mRaft State[0m                (0x(B [1mMembership[0m (0x(B [1mLast Log Index[0m (0x(B [1mLast Written[0m (0x(B [1mLast Applied[0m (0x(B [1mCommit Index[0m (0x(B [1mSnapshot Index[0m (0x(B [1mTerm[0m (0x(B [1mMachine Version[0m (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit1 (0x(B leader                    (0x(B voter      (0x(B 8              (0x(B 8            (0x(B 8            (0x(B 8            (0x(B undefined      (0x(B 6    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit2 (0x(B follower                  (0x(B voter      (0x(B 8              (0x(B 8            (0x(B 8            (0x(B 8            (0x(B undefined      (0x(B 6    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit3 (0x(B {nodedown,rabbit@rabbit3} (0x(B            (0x(B                (0x(B              (0x(B              (0x(B              (0x(B                (0x(B      (0x(B                 (0x(B
+(0mqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqvqqqqqqqqqqqqqqqqqj(B
+[2026-10-23T07:34:55.970Z] Healing partition: docker network connect amqp-net rabbit3
+[2026-10-23T07:34:56.131Z] Waiting for the cluster to return to 3 running nodes...
+[2026-10-23T07:35:07.449Z] Cluster is whole again.
+Status of quorum queue hw2.orders on node rabbit@rabbit1 ...
+(0lqqqqqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqwqqqqqqqqqqqqqqqqqk(B
+(0x(B [1mNode Name[0m      (0x(B [1mRaft State[0m (0x(B [1mMembership[0m (0x(B [1mLast Log Index[0m (0x(B [1mLast Written[0m (0x(B [1mLast Applied[0m (0x(B [1mCommit Index[0m (0x(B [1mSnapshot Index[0m (0x(B [1mTerm[0m (0x(B [1mMachine Version[0m (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit1 (0x(B follower   (0x(B voter      (0x(B 9              (0x(B 9            (0x(B 9            (0x(B 9            (0x(B undefined      (0x(B 7    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit2 (0x(B follower   (0x(B voter      (0x(B 9              (0x(B 9            (0x(B 9            (0x(B 9            (0x(B undefined      (0x(B 7    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit3 (0x(B leader     (0x(B voter      (0x(B 9              (0x(B 9            (0x(B 9            (0x(B 9            (0x(B undefined      (0x(B 7    (0x(B 3               (0x(B
+(0mqqqqqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqvqqqqqqqqqqqqqqqqqj(B
+[2026-10-23T07:35:08.418Z] Scenario finished. Log: results/failure_20261023T073351Z.log

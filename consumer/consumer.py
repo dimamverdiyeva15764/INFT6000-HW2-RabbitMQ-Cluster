@@ -1,4 +1,4 @@
-"""Multi-threaded RabbitMQ consumer with manual acknowledgments (owner: P4).
+"""Multi-threaded RabbitMQ consumer with manual acknowledgments.
 
 What it guarantees
 ------------------

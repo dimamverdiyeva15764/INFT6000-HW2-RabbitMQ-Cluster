@@ -1,0 +1,17 @@
+[2026-11-11T12:14:04.821Z] === S3: network partition - isolate ONE node (minority side) ===
+[2026-11-11T12:14:05.009Z] Leader before partition: rabbit@rabbit3
+[2026-11-11T12:14:05.049Z] Injecting fault: docker network disconnect amqp-net rabbit3
+[2026-11-11T12:15:05.199Z] Leader seen from majority side: rabbit@rabbit3
+[2026-11-11T12:15:10.304Z] Nodes running (majority view): 2 (expected 2)
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      leader              voter               1026425             1026425             16                
+rabbit@rabbit2      follower            voter               1026425             1026425             16                
+rabbit@rabbit3      ['nodedown', 'rabbit@rabbit3']                                                                                
+[2026-11-11T12:15:13.373Z] Healing partition: docker network connect amqp-net rabbit3
+[2026-11-11T12:15:13.402Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T12:15:16.483Z] Cluster is whole again.
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      leader              voter               1026430             1026430             16                
+rabbit@rabbit2      follower            voter               1026430             1026430             16                
+rabbit@rabbit3      follower            voter               1026430             1026430             16                
+[2026-11-11T12:15:17.258Z] Scenario finished. Log: results/failure_20261111T121404Z.log

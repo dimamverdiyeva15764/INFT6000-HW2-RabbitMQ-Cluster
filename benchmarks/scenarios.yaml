@@ -1,4 +1,4 @@
-# Benchmark matrix (owner: P2). Read by benchmarks/run_bench.py.
+# Benchmark matrix, read by benchmarks/run_bench.py.
 # 11 configurations x 3 repetitions = 33 runs, ~60 s publishing each
 # (~60-70 min of machine time including drain and cool-down).
 # Run benchmarks only when no chaos test is running: both use queue hw2.orders.

@@ -1,4 +1,4 @@
-# C4 Level 2 - Container Diagram (owner: P2)
+# C4 Level 2 - Container Diagram
 
 Shows the runtime containers of the system and how they talk to each other: the three RabbitMQ nodes, the Raft sync layer that replicates the quorum queue, the monitoring stack, the test clients and the management/benchmark tools.
 
@@ -17,10 +17,10 @@ Shows the runtime containers of the system and how they talk to each other: the 
 | Prometheus | `docker-compose.yml` service `prometheus`, `monitoring/prometheus/prometheus.yml`, `monitoring/prometheus/rules/rabbitmq-alerts.yml` | scrape 15692 every 5 s, UI 9090 |
 | Grafana | `docker-compose.yml` service `grafana`, `monitoring/grafana/provisioning/`, `monitoring/grafana/dashboards/*.json` | 3000, datasource `http://prometheus:9090` |
 | Management & benchmark tools | `scripts/mgmt/*`, `benchmarks/run_bench.py`, `benchmarks/analyze.py` | HTTP API 15672-15674, Prometheus 9090 |
-| Producer app (P3) | `producer/` (CLI in `docs/CONTRACT.md` section 3) | host ports 5672-5674 |
-| Consumer app (P4) | `consumer/` (CLI in `docs/CONTRACT.md` section 4) | host ports 5672-5674 |
+| Producer app | `producer/` (CLI in `docs/CONTRACT.md` section 3) | host ports 5672-5674 |
+| Consumer app | `consumer/` (CLI in `docs/CONTRACT.md` section 4) | host ports 5672-5674 |
 
-If a port, service or container name changes in `docker-compose.yml`, update this diagram and tell P1 (Deployment diagram).
+If a port, service or container name changes in `docker-compose.yml`, update this diagram and the Deployment diagram.
 
 ## Mermaid version
 
@@ -29,9 +29,9 @@ flowchart TB
     OPS(["Operator"])
     subgraph SYS["Distributed AMQP Messaging Cluster"]
         direction TB
-        TOOLS["Management & benchmark tools<br/>bash, Python 3 (P2)"]
-        PROD["Producer app<br/>Python, pika, confirms (P3)"]
-        CONS["Consumer app<br/>Python, pika, manual acks (P4)"]
+        TOOLS["Management & benchmark tools<br/>bash, Python 3"]
+        PROD["Producer app<br/>Python, pika, confirms"]
+        CONS["Consumer app<br/>Python, pika, manual acks"]
         R1["rabbit1<br/>RabbitMQ 3.13.7<br/>5672 / 15672 / 15692"]
         R2["rabbit2<br/>RabbitMQ 3.13.7<br/>5672 / 15672 / 15692"]
         R3["rabbit3<br/>RabbitMQ 3.13.7<br/>5672 / 15672 / 15692"]

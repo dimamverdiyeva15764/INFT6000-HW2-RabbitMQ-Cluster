@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/DelkaIMV/Documents/INFT6000-HW2-RabbitMQ-Cluster/producer/producer.py", line 13, in <module>
+    import pika
+ModuleNotFoundError: No module named 'pika'

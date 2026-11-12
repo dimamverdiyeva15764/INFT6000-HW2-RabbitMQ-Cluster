@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates dashboards/hw2-overview.json (owner: P2).
+"""Generates dashboards/hw2-overview.json.
 
 Edit the panel list here and re-run instead of hand-editing the JSON:
     python3 monitoring/grafana/build_hw2_dashboard.py
@@ -11,7 +11,7 @@ import json
 import os
 
 DS = {"type": "prometheus", "uid": "prometheus"}
-# Fixed colour per node (categorical slots 1-3), the same on every panel.
+# Fixed colour per node, the same on every panel.
 NODE_COLORS = {"rabbit1": "#2a78d6", "rabbit2": "#eb6834", "rabbit3": "#1baf7a"}
 FLOW_COLORS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 GOOD, BAD, WARN = "#008300", "#e34948", "#eda100"
@@ -195,7 +195,7 @@ panels.append(timeseries(
 dashboard = {
     "uid": "hw2-overview",
     "title": "HW2 - RabbitMQ cluster overview",
-    "description": "INFT6000 HW2 (P2): node health, message rates, queue depth, Raft state and alerts.",
+    "description": "INFT6000 HW2: node health, message rates, queue depth, Raft state and alerts.",
     "tags": ["hw2", "rabbitmq"],
     "timezone": "browser",
     "editable": False,

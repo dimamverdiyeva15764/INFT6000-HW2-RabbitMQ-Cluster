@@ -24,12 +24,11 @@ The full component view covers both test clients, the shared client library and 
 
 ---
 
-## Producer path in detail (P3)
+## Producer path in detail
 
-This component view shows the P3 producer path and its RabbitMQ publishing
-destination. The producer uses the shared connection manager so P4 can reuse
-the same host rotation and reconnect behavior. The consumer implementation
-itself remains P4's responsibility.
+This view shows the producer path and its RabbitMQ publishing destination.
+The producer uses the shared connection manager, and the consumer reuses the
+same host rotation and reconnect behavior.
 
 ## Mermaid view
 
@@ -78,7 +77,7 @@ the project so it can also be rendered with the C4-PlantUML library.
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Component.puml
 
 LAYOUT_LEFT_RIGHT()
-title C4 Component Diagram - Producer and RabbitMQ Publishing Path (P3)
+title C4 Component Diagram - Producer and RabbitMQ Publishing Path
 
 Person(operator, "Operator / benchmark runner", "Starts a producer run and keeps its output")
 

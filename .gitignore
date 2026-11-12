@@ -1,16 +1,7 @@
-# macOS
-.DS_Store
-
-# Python
-.venv/
+.env
 __pycache__/
 *.pyc
 .pytest_cache/
-
-# Local secrets
-.env
-.env.*
-!.env.example
-
-# Temporary files
-*.log
+.venv/
+.DS_Store
+benchmarks/results/selftest/

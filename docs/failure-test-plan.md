@@ -1,6 +1,6 @@
-# Failure Test Plan and Results (Requirement #15) - Scenarios owned by P1
+# Failure Test Plan and Results (Requirement #15)
 
-P1 defines and injects the failures. **P4** provides the data-loss proof by comparing the IDs the producer sent (and got confirms for) against the IDs the consumer received.
+`scripts/failure/run_scenario.sh` injects the failures. The data-loss proof compares the IDs the producer got confirms for with the IDs the consumer received (`consumer/validate.py`).
 
 ## 1. Test environment
 
@@ -17,14 +17,12 @@ P1 defines and injects the failures. **P4** provides the data-loss proof by comp
 ## 2. How to run
 
 ```bash
-./scripts/up.sh                                   # start cluster
-# Terminal 2 (P3):  start producer in stress mode (continuous publishing)
-# Terminal 3 (P4):  start consumer with manual acks + validation
-./scripts/failure/run_scenario.sh leader-crash    # inject fault
-# After the run: P4 runs the validator -> sent_confirmed == received, 0 lost, 0 out-of-order
+./scripts/up.sh                                    # start cluster
+./scripts/failure/run_scenario.sh leader-crash     # fault only, idle cluster
+./scripts/p4/chaos_run.sh leader-crash mytest1     # producer + consumer under load, fault, validator
 ```
 
-Output log: `results/failure_<timestamp>.log` (timestamps, leader before/after, election time in ms, quorum status).
+`run_scenario.sh` writes `results/failure_<timestamp>.log` (timestamps, leader before/after, election time in ms, quorum status).
 
 ## 3. Scenarios
 
@@ -44,9 +42,9 @@ Output log: `results/failure_<timestamp>.log` (timestamps, leader before/after, 
 | S3 Network partition (leader `rabbit3` isolated) | rabbit@rabbit3 | rabbit@rabbit1 during the partition (term 6); rabbit@rabbit3 again after heal (term 7) | not captured (see note) | ~11.3 s | see 4b | see 4b | see 4b | see 4b | `results/failure_S3-partition_20261023T073351Z.log` |
 | S4 Rolling restart | see 4b | | | | | | | | |
 
-## 4b. Results under load (final review, 2026-11-11)
+## 4b. Results under load (native test cluster, 2026-11-11)
 
-Each scenario was run 3 times with `scripts/p4/chaos_run.sh` (producer 4 threads, consumer 4 threads, 1 KB messages, fault 15 s after the start) and checked with `consumer/validate.py`. The cluster was a real 3-node RabbitMQ 3.13.7 with this repository's `rabbitmq.conf`; see `docs/QA-REVIEW.md` for the environment. Raw evidence: `results/as-submitted/chaos/<scenario>/run<k>/` (code as submitted).
+Each scenario was run 3 times with `scripts/p4/chaos_run.sh` (producer 4 threads, consumer 4 threads, 1 KB messages, fault 15 s after the start) and checked with `consumer/validate.py`. The cluster was a native 3-node RabbitMQ 3.13.7 with this repository's `rabbitmq.conf` (see README, "Test environments and evidence"). Raw evidence: `results/as-submitted/chaos/<scenario>/run<k>/` (first complete version of the code).
 
 | Scenario | Runs | Election | Confirmed (per run) | Lost | Duplicates | Out-of-order per consumer |
 |---|---|---|---|---|---|---|
@@ -55,13 +53,13 @@ Each scenario was run 3 times with `scripts/p4/chaos_run.sh` (producer 4 threads
 | S3 partition (rabbit3) | 3 | run 1 (rabbit3 leader): new leader rabbit1, term 5 | 3,604 / 9,829 / 9,733 | 0 | 0 / 1 / 0 | 0 |
 | S4 rolling restart | 3 | leader moved twice per run | 17,374 / 17,213 / 17,072 | 0 | 1 / 0 / 0 | 0 |
 
-Total: 12 runs, 138,896 confirmed messages, **0 lost**. A second, larger campaign after the review fixes (including runs with every client on the failed node, and two nodes down) is in `results/chaos/` and `docs/evidence/p4-data-integrity.md`: 24 runs, 467,287 confirmed, 0 lost. Persistence test (50,000 messages, all three nodes stopped and started): depth 50,000 before and after, 0 lost.
+Total: 12 runs, 138,896 confirmed messages, **0 lost**. A second, larger campaign with the final code (including runs with every client on the failed node, and two nodes down) is in `results/chaos/` and `docs/evidence/data-integrity.md`: 24 runs, 467,287 confirmed, 0 lost. Persistence test (50,000 messages, all three nodes stopped and started): depth 50,000 before and after, 0 lost.
 
 **Notes**
 
 * *Election time (S2):* measured by polling the management API every 200 ms, starting when the `docker kill` command returned. The first poll already showed the new leader, so 55 ms is an upper bound on the remaining election time (the election may have finished even earlier, while `docker kill` was returning).
 * *S3 election time:* the status check after the isolation returned about 62 s after the fault was injected, and the management API still reported the old leader (`rabbit3`) at that moment. The authoritative Raft view from `rabbitmq-queues quorum_status` (taken from `rabbit1`) shows `rabbit1` as leader in term 6 with `rabbit3` as `{nodedown,rabbit@rabbit3}`, so a new leader had been elected on the majority side. The exact election time was therefore not captured.
-* *Message counters:* these scenarios were run on an idle cluster. The producer/consumer counters (sent, received, lost, out-of-order) are produced by P4's validator while P3's producer runs during the same faults; they are reported in the P4 section of the technical report.
+* *Message counters:* these scenarios were run on an idle cluster. The message counters under load are in section 4b.
 
 ## 5. Analysis
 
@@ -75,24 +73,8 @@ Total: 12 runs, 138,896 confirmed messages, **0 lost**. A second, larger campaig
 
 ## 6. Evidence
 
-Raw logs are stored in `results/`. **The nine screenshots below are referenced but were not included in the submitted ZIP** - add the PNG files to `docs/evidence/` (or remove these links) before submission.
-
-### Normal state
-![Cluster ready (up.sh output)](evidence/01-up-ready.png)
-![3 nodes running](evidence/02-ui-nodes.png)
-![Quorum queue hw2.orders](evidence/03-ui-queues.png)
-![Leader and members before the fault](evidence/04-ui-queue-leader-before.png)
-
-### S2 - Leader crash
-![Leader node down](evidence/05-ui-node-down.png)
-![Cluster recovered](evidence/06-ui-recovered.png)
-![Leader crash log (election time)](evidence/09-log-leader-crash.png)
-
-### S3 - Network partition
-![Partition - node unreachable](evidence/07-ui-partition.png)
-![Partition healed](evidence/08-ui-partition-healed.png)
-![Partition log](evidence/10-log-partition.png)
-
-### Still to be added by the team (pending)
-1. Grafana panel (P2) showing the throughput dip and recovery at the fault time.
-2. P4's validator output proving zero data loss under load (sent_confirmed == received, 0 out-of-order) for S2 and S3.
+- Raw logs of S1 to S3 without load: `results/failure_*.log`.
+- Raw files of every run under load (client CSVs, logs, validator output, Raft status before and after): `results/chaos/<scenario>/run<k>/` and `results/as-submitted/`.
+- Per-run summary: `docs/evidence/data-integrity.md` (`python3 scripts/p4/summarize_chaos.py`).
+- Prometheus plots of the faults: `docs/evidence/fig-leader-crash-run4.png`, `fig-partition-run1.png`, `fig-partition-run4.png`, `fig-rolling-restart-run2.png`, `fig-quorum-loss-run1.png`.
+- Leader crash run 5, Raft status before and after and validator output: `docs/evidence/native-leadercrash-run5-quorum.png`, `native-leadercrash-run5-validation.png`.

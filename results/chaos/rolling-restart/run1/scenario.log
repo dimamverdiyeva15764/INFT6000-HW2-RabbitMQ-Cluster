@@ -1,0 +1,18 @@
+[2026-11-11T12:20:25.087Z] === S4: rolling restart of all nodes (one at a time) ===
+[2026-11-11T12:20:25.259Z] Restarting rabbit1 (observer: rabbit2)
+[2026-11-11T12:20:32.348Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T12:20:45.269Z] Cluster is whole again.
+[2026-11-11T12:20:45.425Z] Leader after restart of rabbit1: rabbit@rabbit2
+[2026-11-11T12:20:45.711Z] Restarting rabbit2 (observer: rabbit1)
+[2026-11-11T12:20:52.756Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T12:21:00.409Z] Cluster is whole again.
+[2026-11-11T12:21:00.505Z] Leader after restart of rabbit2: rabbit@rabbit1
+[2026-11-11T12:21:00.655Z] Restarting rabbit3 (observer: rabbit1)
+[2026-11-11T12:21:07.136Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T12:21:14.414Z] Cluster is whole again.
+[2026-11-11T12:21:14.575Z] Leader after restart of rabbit3: rabbit@rabbit1
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      leader              voter               1134673             1134669             18                
+rabbit@rabbit2      follower            voter               1134673             1134669             18                
+rabbit@rabbit3      follower            voter               1134674             1134671             18                
+[2026-11-11T12:21:16.283Z] Scenario finished. Log: results/failure_20261111T122025Z.log

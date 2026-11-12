@@ -1,4 +1,4 @@
-# Grafana datasource - owner: P2. Loaded automatically at Grafana start-up.
+# Grafana data source, loaded automatically at start-up.
 apiVersion: 1
 datasources:
   - name: Prometheus

@@ -6,8 +6,8 @@ RABBITMQ_USER="${RABBITMQ_USER:-admin}"
 RABBITMQ_PASS="${RABBITMQ_PASS:-admin123}"
 QUEUE_NAME="${QUEUE_NAME:-hw2.orders}"
 NODES=(rabbit1 rabbit2 rabbit3)
-# Management API host port of each node (a function, not "declare -A":
-# macOS ships bash 3.2, which has no associative arrays).
+# Management API host port of each node (a function, because bash 3.2 has no
+# associative arrays).
 api_port() {
   case "$1" in
     rabbit1) echo 15672 ;; rabbit2) echo 15673 ;; rabbit3) echo 15674 ;;
@@ -19,9 +19,8 @@ api_port() {
 now_ms() { python3 -c 'import time; print(int(time.time() * 1000))'; }
 log() { echo "[$(python3 -c 'import datetime as d; print(d.datetime.now(d.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"))')] $*"; }
 
-# Readable Raft status of the queue. The default rabbitmq-queues output is a
-# terminal table full of line-drawing escape codes that turn into garbage in
-# log files, so ask for JSON and format it as plain text.
+# Raft status of the queue as plain text (the default table output contains
+# line-drawing escape codes that break log files).
 quorum_status_text() {
   local via="$1" q="${2:-$QUEUE_NAME}"
   docker exec "$via" rabbitmq-queues quorum_status "$q" --formatter json -q 2>/dev/null | python3 -c '
@@ -39,7 +38,7 @@ for r in rows:
 # Fail fast with a clear message if Docker is missing or not usable.
 require_docker() {
   if ! command -v docker >/dev/null 2>&1; then
-    echo "ERROR: 'docker' is not installed. See HANDOUT.md section 2 (install Docker first)." >&2
+    echo "ERROR: 'docker' is not installed. See README.md, Requirements (install Docker first)." >&2
     exit 1
   fi
   if ! docker info >/dev/null 2>&1; then

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Quorum loss under load (failure F4 of the design): stop TWO of the three nodes while the
+# Quorum loss under load: stop TWO of the three nodes while the
 # producer and consumer run, keep them down, then start them again and validate.
 # Expected: no publish is confirmed while the majority is gone (CP behaviour), clients retry,
 # the queue resumes when a second node returns, and lost = 0.

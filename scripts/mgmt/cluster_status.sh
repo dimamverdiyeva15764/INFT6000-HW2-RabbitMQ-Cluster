@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Cluster membership + alarms via the CLI tools (owner: P2).
+# Cluster membership and alarms through the CLI tools.
 # Uses the first RabbitMQ container that is running, so it still works when
 # a node has been killed by a failure test.
-# Works with macOS's default bash 3.2 (no associative arrays, no GNU date).
+# Works with bash 3.2.
 # Usage: ./scripts/mgmt/cluster_status.sh
 set -euo pipefail
 NODES="rabbit1 rabbit2 rabbit3"

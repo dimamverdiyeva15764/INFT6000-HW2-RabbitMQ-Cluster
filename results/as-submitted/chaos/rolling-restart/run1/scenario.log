@@ -1,0 +1,24 @@
+[2026-11-11T11:39:32.658Z] === S4: rolling restart of all nodes (one at a time) ===
+[2026-11-11T11:39:32.708Z] Restarting rabbit1 (observer: rabbit2)
+[2026-11-11T11:39:38.060Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T11:39:47.971Z] Cluster is whole again.
+[2026-11-11T11:39:48.009Z] Leader after restart of rabbit1: rabbit@rabbit3
+[2026-11-11T11:39:48.088Z] Restarting rabbit2 (observer: rabbit1)
+[2026-11-11T11:39:53.447Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T11:39:59.182Z] Cluster is whole again.
+[2026-11-11T11:39:59.249Z] Leader after restart of rabbit2: rabbit@rabbit3
+[2026-11-11T11:39:59.313Z] Restarting rabbit3 (observer: rabbit1)
+[2026-11-11T11:40:04.764Z] Waiting for the cluster to return to 3 running nodes...
+[2026-11-11T11:40:10.342Z] Cluster is whole again.
+[2026-11-11T11:40:10.401Z] Leader after restart of rabbit3: rabbit@rabbit1
+Status of quorum queue hw2.orders on node rabbit@rabbit1 ...
+(0lqqqqqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqwqqqqqqqqqqqqqqqqqk(B
+(0x(B [1mNode Name[0m      (0x(B [1mRaft State[0m (0x(B [1mMembership[0m (0x(B [1mLast Log Index[0m (0x(B [1mLast Written[0m (0x(B [1mLast Applied[0m (0x(B [1mCommit Index[0m (0x(B [1mSnapshot Index[0m (0x(B [1mTerm[0m (0x(B [1mMachine Version[0m (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit1 (0x(B leader     (0x(B voter      (0x(B 208882         (0x(B 208877       (0x(B 208876       (0x(B 208876       (0x(B 207978         (0x(B 7    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit2 (0x(B follower   (0x(B voter      (0x(B 208886         (0x(B 208877       (0x(B 208882       (0x(B 208882       (0x(B 202729         (0x(B 7    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit3 (0x(B follower   (0x(B voter      (0x(B 208890         (0x(B 208886       (0x(B 208883       (0x(B 208883       (0x(B 207978         (0x(B 7    (0x(B 3               (0x(B
+(0mqqqqqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqvqqqqqqqqqqqqqqqqqj(B
+[2026-11-11T11:40:11.649Z] Scenario finished. Log: results/failure_20261111T113932Z.log

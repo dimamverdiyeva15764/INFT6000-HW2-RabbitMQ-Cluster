@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Needs NO cluster and NO Docker. Shows the validator catching planted errors, then passing a clean run.
+# Shows the validator catching planted errors, then passing a clean run.
+# Needs no cluster and no Docker.
 # Usage: ./scripts/p4/validator_demo.sh
 set -uo pipefail
 cd "$(dirname "$0")/../.."

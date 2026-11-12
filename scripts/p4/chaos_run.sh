@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# One chaos run WITH the producer and consumer running under load, then the validator.
-# It uses P1's fault injection (scripts/failure/run_scenario.sh) unchanged.
+# One chaos run under load: the consumer and producer run, a fault is injected with
+# scripts/failure/run_scenario.sh, then the validator checks the result.
 #
 # Usage: ./scripts/p4/chaos_run.sh <follower-crash|leader-crash|partition|rolling-restart> [run_number=1]
 # Env:   DURATION (producer seconds, default 60; 100 for rolling-restart)  RATE (msg/s/thread, default 100)
@@ -16,9 +16,9 @@ case "$SCENARIO" in rolling-restart) DEFAULT_DURATION=100 ;; *) DEFAULT_DURATION
 DURATION="${DURATION:-$DEFAULT_DURATION}"; RATE="${RATE:-100}"; FAULT_AT="${FAULT_AT:-15}"
 OUT="results/chaos/${SCENARIO}/run${RUN}"; rm -rf "$OUT"; mkdir -p "$OUT"
 
-# Targeted failover (default on): connect EVERY client first to the node the fault will hit,
-# using the same victim choice as scripts/failure/run_scenario.sh, so each run really
-# exercises client failover. TARGET_FAILOVER=0 keeps random host order.
+# Targeted failover (default on): every client first connects to the node the fault
+# will hit, so each run really tests client failover. TARGET_FAILOVER=0 keeps the
+# random host order.
 TARGET_FAILOVER="${TARGET_FAILOVER:-1}"
 if [[ "$TARGET_FAILOVER" == "1" && "$SCENARIO" != "rolling-restart" ]]; then
   LEADER="$(queue_leader rabbit1 | sed 's/rabbit@//')"
