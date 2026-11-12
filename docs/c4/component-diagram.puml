@@ -1,0 +1,60 @@
+@startuml component-diagram
+' C4 Level 3 - Component diagram (P3 producer + shared library, P4 consumer, broker internals).
+' Every client component is named after the module or class that implements it.
+' Render: java -jar plantuml.jar -tpng component-diagram.puml  (or https://www.plantuml.com/plantuml)
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Component.puml
+
+LAYOUT_LEFT_RIGHT()
+title Component diagram - test clients and RabbitMQ node internals (INFT6000 HW2)
+
+Container_Boundary(prod, "Producer application  (producer/producer.py, Python 3 + pika)") {
+  Component(pcli, "CLI / run control", "parse_args, run_producer", "Options: threads, duration or count, rate, size, out; start barrier; run summary")
+  Component(pworker, "Producer worker threads", "producer_worker", "One thread = one connection + one channel; per-thread seq; rate limit")
+  Component(penc, "Message encoder", "build_message_body", "JSON {msg_id, producer_id, seq, sent_ts_ns, payload}, exact size in bytes")
+  Component(ppub, "Publisher + retry handler", "_publish_one", "Persistent, mandatory publish; waits for confirm; on nack or lost connection retries the SAME msg_id")
+  Component(pres, "Confirm tracker / result writer", "RunStats, csv.writer", "confirmed.csv row only after the broker confirm; producer_summary.json")
+}
+
+Container_Boundary(lib, "Shared client library  (common/, P3)") {
+  Component(cm, "ConnectionManager (channel provider)", "common/connection.py", "Host list 5672/5673/5674 in shuffled order, heartbeat 10 s, exponential backoff 0.5-10 s + jitter, fail-fast on auth errors")
+  Component(jlog, "JSON-lines logger", "common/logging_setup.py", "One JSON object per event (connect, failover, retry, duplicate)")
+}
+
+Container_Boundary(cons, "Consumer application  (consumer/consumer.py, Python 3 + pika)") {
+  Component(cworker, "Consumer worker threads", "consumer_worker", "One connection + channel per thread; basic_qos(prefetch); auto_ack=False; re-subscribe after failover")
+  Component(chand, "Delivery handler (ack / nack)", "handle_delivery", "parse -> record -> basic_ack; basic_nack(requeue=True) on any error")
+  Component(cstate, "De-duplication + ordering state", "SharedState", "Seen msg_id set; per (producer, consumer) last seq; flushed received.csv")
+  Component(val, "Validator", "consumer/validate.py", "confirmed.csv vs received.csv: lost, duplicates, order, latency; exit 1 if lost > 0")
+}
+
+Container_Boundary(node, "RabbitMQ node  (rabbit1 / rabbit2 / rabbit3, RabbitMQ 3.13.7)") {
+  Component(conn, "AMQP connection / channel handler", "rabbit_reader, rabbit_channel", "Accepts AMQP 0-9-1 on 5672, enforces prefetch, sends confirms and deliveries")
+  Component(exch, "Exchange router (default exchange)", "rabbit_exchange", "Routes routing key hw2.orders to the queue of the same name")
+  Component(qq, "Quorum queue hw2.orders", "rabbit_quorum_queue", "Durable; max-length 1,000,000 with reject-publish; x-delivery-limit 10")
+  Component(ra, "Raft replica (Ra)", "ra / WAL + segment files", "Leader appends, followers replicate over :25672; commit = 2 of 3; elects a new leader on failure")
+  Component(mgmt, "Management + Prometheus plugins", "rabbitmq_management, rabbitmq_prometheus", "UI/HTTP API :15672, metrics :15692")
+}
+
+Rel(pcli, pworker, "starts N")
+Rel(pworker, penc, "builds message")
+Rel(pworker, ppub, "publishes")
+Rel(ppub, cm, "get_channel() / reconnect()")
+Rel(ppub, pres, "on confirm")
+Rel(cworker, cm, "get_channel() / reconnect()")
+Rel(cworker, chand, "each delivery")
+Rel(chand, cstate, "record(msg)")
+Rel(cm, jlog, "failover events")
+
+Rel(cm, conn, "connects / fails over", "AMQP 0-9-1, host 5672-5674")
+Rel(ppub, conn, "basic_publish, waits for confirm", "AMQP")
+Rel(conn, exch, "routes")
+Rel(exch, qq, "enqueue")
+Rel(qq, ra, "append + replicate", ":25672")
+Rel(ra, conn, "commit -> publisher confirm")
+Rel(qq, conn, "deliver (prefetch-limited)")
+Rel(chand, conn, "basic_ack / basic_nack", "AMQP")
+Rel(pres, val, "confirmed.csv", "file")
+Rel(cstate, val, "received.csv", "file")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,49 @@
+@startuml deployment-diagram
+' C4 Deployment diagram (P1, extended in QA with volumes and host port mappings).
+' Every port and volume is copied from docker-compose.yml.
+' Render: java -jar plantuml.jar -tpng deployment-diagram.puml  (or https://www.plantuml.com/plantuml)
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Deployment.puml
+
+LAYOUT_TOP_DOWN()
+title Deployment diagram - Distributed AMQP Messaging Cluster (docker-compose.yml)
+
+Person(ops, "Operator", "Browser + terminal on the host")
+
+Deployment_Node(host, "Docker host", "macOS / Windows / Linux, Docker Compose v2") {
+  Deployment_Node(cli, "Host processes", "Python 3 + pika") {
+    Container(prod, "Producer", "producer/producer.py", "Connects to localhost:5672/5673/5674")
+    Container(cons, "Consumer", "consumer/consumer.py", "Connects to localhost:5672/5673/5674")
+  }
+  Deployment_Node(net, "Docker network amqp-net", "bridge") {
+    Deployment_Node(n1, "rabbit1", "rabbitmq:3.13-management") {
+      Container(b1, "RabbitMQ node rabbit@rabbit1", "Erlang/OTP 26", "5672 AMQP, 15672 UI/API, 15692 metrics, 25672 Erlang distribution (Raft), 4369 epmd\nHost ports 5672, 15672, 15692\nVolume rabbit1_data -> /var/lib/rabbitmq")
+    }
+    Deployment_Node(n2, "rabbit2", "rabbitmq:3.13-management") {
+      Container(b2, "RabbitMQ node rabbit@rabbit2", "Erlang/OTP 26", "5672 AMQP, 15672 UI/API, 15692 metrics, 25672 Erlang distribution (Raft), 4369 epmd\nHost ports 5673, 15673, 15693\nVolume rabbit2_data -> /var/lib/rabbitmq")
+    }
+    Deployment_Node(n3, "rabbit3", "rabbitmq:3.13-management") {
+      Container(b3, "RabbitMQ node rabbit@rabbit3", "Erlang/OTP 26", "5672 AMQP, 15672 UI/API, 15692 metrics, 25672 Erlang distribution (Raft), 4369 epmd\nHost ports 5674, 15674, 15694\nVolume rabbit3_data -> /var/lib/rabbitmq")
+    }
+    Deployment_Node(pr, "prometheus", "prom/prometheus:v2.53.0") {
+      Container(prom, "Prometheus", "Go", "UI/API 9090 (host 9090), scrape every 5 s\nVolume prometheus_data -> /prometheus\nBind ./monitoring/prometheus/{prometheus.yml, rules/} (ro)")
+    }
+    Deployment_Node(gr, "grafana", "grafana/grafana:11.1.0") {
+      Container(graf, "Grafana", "Go", "UI 3000 (host 3000)\nVolume grafana_data -> /var/lib/grafana\nBind ./monitoring/grafana/{provisioning, dashboards} (ro)")
+    }
+  }
+}
+
+Rel(prod, b1, "Publish + confirms", "AMQP, host 5672/5673/5674")
+Rel(cons, b3, "Consume + acks", "AMQP, host 5672/5673/5674")
+BiRel(b1, b2, "Raft replication", ":25672")
+BiRel(b2, b3, "Raft replication", ":25672")
+BiRel(b1, b3, "Raft replication", ":25672")
+Rel(prom, b1, "Scrapes", "HTTP :15692")
+Rel(prom, b2, "Scrapes", "HTTP :15692")
+Rel(prom, b3, "Scrapes", "HTTP :15692")
+Rel(graf, prom, "PromQL", "HTTP :9090")
+Rel(ops, b1, "Management UI", "HTTP 15672-15674")
+Rel(ops, graf, "Dashboards", "HTTP 3000")
+
+SHOW_LEGEND()
+@enduml

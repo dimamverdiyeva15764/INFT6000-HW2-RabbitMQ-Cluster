@@ -1,0 +1,108 @@
+{
+  "scenario": "B2-p4",
+  "group": "B2",
+  "rep": 2,
+  "params": {
+    "hosts": "localhost:5672,localhost:5673,localhost:5674",
+    "queue": "hw2.orders",
+    "duration": 60,
+    "warmup": 5,
+    "repeats": 3,
+    "rate": 0,
+    "size": 1024,
+    "producer_threads": 4,
+    "consumer_threads": 4,
+    "prefetch": 100,
+    "consumer_start_delay": 3,
+    "drain_timeout": 120,
+    "cooldown": 10,
+    "id": "B2-p4",
+    "group": "B2"
+  },
+  "commands": {
+    "producer": "python3 producer/producer.py --hosts localhost:5672,localhost:5673,localhost:5674 --queue hw2.orders --threads 4 --duration 60 --rate 0 --size 1024 --out /home/claude/final/amqp-cluster/benchmarks/results/raw/B2-p4/rep2",
+    "consumer": "python3 consumer/consumer.py --hosts localhost:5672,localhost:5673,localhost:5674 --queue hw2.orders --threads 4 --prefetch 100 --out /home/claude/final/amqp-cluster/benchmarks/results/raw/B2-p4/rep2"
+  },
+  "host": {
+    "platform": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 2,
+    "python": "3.13.18"
+  },
+  "git_commit": "4a49ec2",
+  "cluster_before": {
+    "nodes_running": 3,
+    "members_online": 3,
+    "leader": "rabbit@rabbit2"
+  },
+  "broker": {
+    "cluster_name": "rabbit@vm",
+    "rabbitmq_version": "3.13.7",
+    "erlang_version": "26.2.5.4"
+  },
+  "timestamps": {
+    "consumer_start": "2026-11-11T13:07:40.832+00:00",
+    "publish_start": "2026-11-11T13:07:43.833+00:00",
+    "publish_end": "2026-11-11T13:08:44.060+00:00",
+    "drained": "2026-11-11T13:08:50.085+00:00",
+    "end": "2026-11-11T13:08:51.053+00:00"
+  },
+  "timestamps_epoch": {
+    "publish_start": 1794402463.833805,
+    "publish_end": 1794402524.0607789,
+    "drained": 1794402530.0855982
+  },
+  "exit_codes": {
+    "producer": 0,
+    "consumer": 0
+  },
+  "drained": true,
+  "queue_depth_after": 0,
+  "prometheus": {
+    "window_start": "2026-11-11T13:07:48.833+00:00",
+    "window_end": "2026-11-11T13:08:44.060+00:00",
+    "window_s": 55,
+    "published_rate": {
+      "mean": 488.70000000000005,
+      "query": "sum(increase(rabbitmq_global_messages_received_total[55s])) / 55"
+    },
+    "confirmed_rate": {
+      "mean": 488.7200000000001,
+      "query": "sum(increase(rabbitmq_global_messages_confirmed_total[55s])) / 55"
+    },
+    "delivered_rate": {
+      "mean": 488.58000000000004,
+      "query": "sum(increase(rabbitmq_global_messages_delivered_consume_manual_ack_total[55s])) / 55"
+    },
+    "acked_rate": {
+      "mean": 488.58000000000004,
+      "query": "sum(increase(rabbitmq_global_messages_acknowledged_total[55s])) / 55"
+    },
+    "redelivered_rate": {
+      "mean": 0.0,
+      "query": "sum(increase(rabbitmq_global_messages_redelivered_total[55s])) / 55"
+    },
+    "queue_depth": {
+      "mean": 2.3333333333333335,
+      "max": 4.0,
+      "samples": 12,
+      "query": "max(rabbitmq_detailed_queue_messages{queue=\"hw2.orders\"})"
+    },
+    "raft_commit_latency_s": {
+      "mean": 0.004333333333333333,
+      "max": 0.011,
+      "samples": 12,
+      "query": "max(rabbitmq_detailed_raft_entry_commit_latency_seconds{queue=\"hw2.orders\"})"
+    },
+    "memory_pct_of_watermark": {
+      "mean": 13.33218908222134,
+      "max": 13.960756244486697,
+      "samples": 12,
+      "query": "max(100 * rabbitmq_process_resident_memory_bytes / rabbitmq_resident_memory_limit_bytes)"
+    }
+  },
+  "files": {
+    "confirmed.csv": true,
+    "received.csv": true
+  }
+}

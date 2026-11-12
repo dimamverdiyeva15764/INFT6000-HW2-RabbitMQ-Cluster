@@ -1,0 +1,1 @@
+"""Shared RabbitMQ client utilities."""

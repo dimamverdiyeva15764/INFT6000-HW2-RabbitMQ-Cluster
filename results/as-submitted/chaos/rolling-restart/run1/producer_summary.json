@@ -1,0 +1,17 @@
+{
+  "sent": 17374,
+  "confirmed": 17374,
+  "nacked": 0,
+  "republished": 10,
+  "reconnects": 10,
+  "elapsed_s": 100.033,
+  "errors": [],
+  "confirm_latency_ms": {
+    "samples": 17374,
+    "total": 17374,
+    "p50": 3.0333895,
+    "p95": 49.867993649999995,
+    "p99": 66.56580817000004
+  },
+  "status": "ok"
+}

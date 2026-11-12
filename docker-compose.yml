@@ -1,0 +1,122 @@
+# INFT 6000 - HW2 - Distributed AMQP Messaging Cluster
+# Owner of this file: P1 (cluster services). P2 owns the monitoring services
+# (prometheus, grafana) and their configuration under ./monitoring.
+#
+# Usage:  ./scripts/up.sh      (or: docker compose up -d)
+
+name: amqp-cluster
+
+x-rabbit-common: &rabbit-common
+  image: rabbitmq:3.13-management
+  restart: unless-stopped
+  environment: &rabbit-env
+    RABBITMQ_ERLANG_COOKIE: "${RABBITMQ_ERLANG_COOKIE:-INFT6000_HW2_SECRET_COOKIE}"
+    RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER:-admin}"
+    RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASS:-admin123}"
+  healthcheck:
+    test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+    interval: 10s
+    timeout: 10s
+    retries: 12
+    start_period: 20s
+  networks:
+    - amqp-net
+
+services:
+  rabbit1:
+    <<: *rabbit-common
+    container_name: rabbit1
+    hostname: rabbit1
+    environment:
+      <<: *rabbit-env
+      RABBITMQ_NODENAME: rabbit@rabbit1
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # Management UI / HTTP API
+      - "15692:15692"   # Prometheus metrics (rabbitmq_prometheus)
+    volumes:
+      - rabbit1_data:/var/lib/rabbitmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
+
+  rabbit2:
+    <<: *rabbit-common
+    container_name: rabbit2
+    hostname: rabbit2
+    environment:
+      <<: *rabbit-env
+      RABBITMQ_NODENAME: rabbit@rabbit2
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+      - "15693:15692"
+    volumes:
+      - rabbit2_data:/var/lib/rabbitmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
+
+  rabbit3:
+    <<: *rabbit-common
+    container_name: rabbit3
+    hostname: rabbit3
+    environment:
+      <<: *rabbit-env
+      RABBITMQ_NODENAME: rabbit@rabbit3
+    ports:
+      - "5674:5672"
+      - "15674:15672"
+      - "15694:15692"
+    volumes:
+      - rabbit3_data:/var/lib/rabbitmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
+
+  # ---- Monitoring (configuration files are owned by P2) ----
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/rules:/etc/prometheus/rules:ro   # P2: alert rules
+      - prometheus_data:/prometheus
+    depends_on:
+      rabbit1:
+        condition: service_healthy
+    networks:
+      - amqp-net
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: "${GRAFANA_USER:-admin}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_PASS:-admin}"
+      # P2: open the HW2 dashboard as the home page; no sign-up.
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/hw2-overview.json
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    networks:
+      - amqp-net
+
+networks:
+  amqp-net:
+    name: amqp-net
+    driver: bridge
+
+volumes:
+  rabbit1_data:
+  rabbit2_data:
+  rabbit3_data:
+  prometheus_data:
+  grafana_data:

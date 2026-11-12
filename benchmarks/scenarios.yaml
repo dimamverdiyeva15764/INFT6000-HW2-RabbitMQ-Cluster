@@ -1,0 +1,49 @@
+# Benchmark matrix (owner: P2). Read by benchmarks/run_bench.py.
+# 11 configurations x 3 repetitions = 33 runs, ~60 s publishing each
+# (~60-70 min of machine time including drain and cool-down).
+# Run benchmarks only when no chaos test is running: both use queue hw2.orders.
+
+defaults:
+  hosts: "localhost:5672,localhost:5673,localhost:5674"
+  queue: hw2.orders
+  duration: 60          # seconds of publishing per run
+  warmup: 5             # seconds ignored at the start of each run by analyze.py
+  repeats: 3
+  rate: 0               # msg/s per producer thread, 0 = unthrottled (max throughput)
+  size: 1024            # message body bytes
+  producer_threads: 4
+  consumer_threads: 4
+  prefetch: 100
+  consumer_start_delay: 3   # s between starting consumers and producers
+  drain_timeout: 120        # s to wait for the queue to empty after publishing
+  cooldown: 10              # s pause between runs
+
+# Commands use the CLI agreed in docs/CONTRACT.md (sections 3 and 4).
+# {placeholders} are filled from the scenario; {out} is the run's raw folder.
+commands:
+  producer: >-
+    python3 producer/producer.py --hosts {hosts} --queue {queue}
+    --threads {producer_threads} --duration {duration} --rate {rate} --size {size} --out {out}
+  consumer: >-
+    python3 consumer/consumer.py --hosts {hosts} --queue {queue}
+    --threads {consumer_threads} --prefetch {prefetch} --out {out}
+
+scenarios:
+  # B1 baseline: one publisher thread, one consumer thread
+  - {id: B1-baseline, group: B1, producer_threads: 1, consumer_threads: 1}
+
+  # B2 producer scaling (4 consumers, 1 KB)
+  - {id: B2-p1,  group: B2, producer_threads: 1}
+  - {id: B2-p4,  group: B2, producer_threads: 4}
+  - {id: B2-p8,  group: B2, producer_threads: 8}
+  - {id: B2-p16, group: B2, producer_threads: 16}
+
+  # B3 message size (4 producers, 4 consumers); 1 KB is B2-p4
+  - {id: B3-256B, group: B3, size: 256}
+  - {id: B3-4KB,  group: B3, size: 4096}
+  - {id: B3-64KB, group: B3, size: 65536}
+
+  # B4 consumer prefetch (4 producers, 4 consumers, 1 KB)
+  - {id: B4-q10,  group: B4, prefetch: 10}
+  - {id: B4-q100, group: B4, prefetch: 100}
+  - {id: B4-q500, group: B4, prefetch: 500}

@@ -1,0 +1,12 @@
+# Dashboard provider - owner: P2. Loads every *.json in the folder that
+# docker-compose.yml mounts at /var/lib/grafana/dashboards.
+apiVersion: 1
+providers:
+  - name: hw2
+    folder: HW2 RabbitMQ
+    type: file
+    disableDeletion: true
+    allowUiUpdates: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards

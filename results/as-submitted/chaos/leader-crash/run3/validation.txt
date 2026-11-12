@@ -1,0 +1,14 @@
+==========================================================================
+VALIDATION REPORT
+==========================================================================
+Confirmed by broker (unique)                         10813  
+Received (unique)                                    10813  
+LOST (confirmed, never received)                         0  must be 0
+Duplicate deliveries                                     0  allowed (at-least-once); consumer de-dups
+  of which flagged redelivered                           1  
+Out-of-order, per consumer                               0  must be 0 (queue order guarantee)
+Out-of-order, global arrival                            17  info only (undefined with >1 competing consumer)
+Unconfirmed but delivered                                0  allowed (confirm lost in crash)
+Latency p50 / p95 / p99 / max (ms)  2.91 / 49.15 / 54.98 / 252.80  
+--------------------------------------------------------------------------
+RESULT: PASS

@@ -1,0 +1,21 @@
+{
+  "confirmed": 21891,
+  "confirmed_rows": 21891,
+  "received_unique": 21891,
+  "received_deliveries": 21894,
+  "lost": 0,
+  "lost_ids_sample": [],
+  "duplicates": 3,
+  "redelivered_flag": 4,
+  "out_of_order": 59,
+  "out_of_order_per_consumer": 0,
+  "unconfirmed_but_delivered": 0,
+  "latency_ms": {
+    "p50": 3.584952,
+    "p95": 9.8583845,
+    "p99": 24.48787539999998,
+    "max": 204.357414
+  },
+  "per_producer_out_of_order": {},
+  "verdict": "PASS"
+}

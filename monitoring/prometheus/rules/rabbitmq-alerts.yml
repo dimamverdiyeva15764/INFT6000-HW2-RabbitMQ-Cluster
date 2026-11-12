@@ -1,0 +1,87 @@
+# Alert rules for the 3-node RabbitMQ cluster - owner: P2 (monitoring)
+# Loaded by prometheus.yml (rule_files: /etc/prometheus/rules/*.yml).
+# View them at http://localhost:9090/alerts . No Alertmanager is deployed:
+# the rules are evaluated and shown in Prometheus and in the Grafana HW2 dashboard.
+# Test: promtool test rules monitoring/prometheus/tests/rabbitmq-alerts.test.yml
+
+groups:
+  - name: rabbitmq-cluster
+    rules:
+      - alert: RabbitMQNodeDown
+        expr: up{job="rabbitmq"} == 0
+        for: 5s     # two failed scrapes; P1's chaos scripts keep a node down ~10 s
+        labels:
+          severity: critical
+        annotations:
+          summary: "RabbitMQ node {{ $labels.instance }} is down"
+          description: "Prometheus cannot scrape {{ $labels.instance }}. The quorum queue keeps working while 2 of 3 nodes are up."
+
+      - alert: RabbitMQQuorumLost
+        # Fewer than 2 of 3 nodes reachable: quorum queues cannot commit (no majority).
+        expr: count(up{job="rabbitmq"} == 1) < 2 or absent(up{job="rabbitmq"} == 1)
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "RabbitMQ majority lost"
+          description: "Fewer than 2 of 3 nodes are up. Publishes will not be confirmed until a second node is back."
+
+      - alert: RabbitMQMemoryAlarm
+        expr: rabbitmq_alarms_memory_used_watermark == 1
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Memory alarm on {{ $labels.instance }}"
+          description: "vm_memory_high_watermark (0.6) reached - publishers are blocked."
+
+      - alert: RabbitMQDiskAlarm
+        expr: rabbitmq_alarms_free_disk_space_watermark == 1
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk alarm on {{ $labels.instance }}"
+          description: "Free disk below disk_free_limit (1GB) - publishers are blocked."
+
+  - name: rabbitmq-queues
+    rules:
+      - alert: RabbitMQQueueBacklog
+        # max by(queue): the same queue may be reported by more than one node.
+        expr: max by (vhost, queue) (rabbitmq_detailed_queue_messages_ready) > 100000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Backlog on {{ $labels.queue }}: {{ $value }} ready messages"
+          description: "Consumers are not keeping up. The hw2 policy rejects publishes at 1,000,000."
+
+      - alert: RabbitMQUnackedHigh
+        expr: max by (vhost, queue) (rabbitmq_detailed_queue_messages_unacked) > 10000
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $value }} unacknowledged messages on {{ $labels.queue }}"
+          description: "Consumers receive but do not ack - check prefetch and consumer errors."
+
+      - alert: RabbitMQNoConsumers
+        expr: >
+          max by (vhost, queue) (rabbitmq_detailed_queue_messages) > 0
+          and max by (vhost, queue) (rabbitmq_detailed_queue_consumers) == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.queue }} has messages but no consumers"
+          description: "Messages are waiting and nobody is subscribed."
+
+      - alert: RabbitMQRaftLeaderElection
+        # The Raft term only grows when a new election happens (leader crash, partition).
+        expr: max by (vhost, queue) (changes(rabbitmq_detailed_raft_term_total{queue!=""}[1m])) > 0
+        for: 0s
+        labels:
+          severity: info
+        annotations:
+          summary: "Raft leader election on {{ $labels.queue }}"
+          description: "The Raft term of {{ $labels.queue }} changed in the last minute (a new leader was elected)."

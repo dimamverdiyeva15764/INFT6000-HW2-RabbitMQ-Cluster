@@ -1,0 +1,4 @@
+# P2 benchmark tools:  python3 -m pip install -r benchmarks/requirements.txt
+pyyaml>=6
+pandas>=2
+matplotlib>=3.7

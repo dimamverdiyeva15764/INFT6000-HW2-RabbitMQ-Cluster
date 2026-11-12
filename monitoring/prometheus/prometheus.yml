@@ -1,0 +1,53 @@
+# Prometheus configuration - owner: P2 (monitoring)
+# Scrapes the 3 RabbitMQ nodes started by P1's docker-compose.yml
+# (rabbit1, rabbit2, rabbit3 on network amqp-net, rabbitmq_prometheus plugin on :15692).
+
+global:
+  # 5 s matches the RabbitMQ stats refresh (collect_statistics_interval = 5 s)
+  # and the "scrape 15692 every 5s" label on P1's Deployment diagram.
+  scrape_interval: 5s
+  scrape_timeout: 4s
+  evaluation_interval: 5s
+
+# Alert rules (P2). The folder is mounted by docker-compose.yml.
+rule_files:
+  - /etc/prometheus/rules/*.yml
+
+scrape_configs:
+  # Prometheus itself (lets us show the monitoring stack is healthy).
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # 1) Node-level, aggregated metrics: message rates, connections, memory, disk,
+  #    Raft totals. The official RabbitMQ Grafana dashboards are built on these.
+  - job_name: rabbitmq
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["rabbit1:15692", "rabbit2:15692", "rabbit3:15692"]
+        labels:
+          # The official dashboards filter on a "namespace" label.
+          # Without it their Namespace drop-down is empty and panels show "No data".
+          namespace: hw2
+
+  # 2) Per-queue metrics (queue depth, unacked, consumers, Raft term per queue).
+  #    /metrics/detailed prefixes every metric with "rabbitmq_detailed_",
+  #    so it never clashes with the aggregated metrics of job 1.
+  - job_name: rabbitmq-detailed
+    metrics_path: /metrics/detailed
+    params:
+      family:
+        - queue_coarse_metrics   # rabbitmq_detailed_queue_messages{,_ready,_unacked}
+        - queue_consumer_count   # rabbitmq_detailed_queue_consumers
+        - ra_metrics             # rabbitmq_detailed_raft_term_total{queue=...}, commit index, latency
+    static_configs:
+      - targets: ["rabbit1:15692", "rabbit2:15692", "rabbit3:15692"]
+        labels:
+          namespace: hw2
+    metric_relabel_configs:
+      # This endpoint repeats rabbitmq_identity_info / rabbitmq_build_info.
+      # A second copy per instance breaks the "on(instance) group_left" join in the
+      # official Quorum-Queues-Raft dashboard, so keep only the copy from job 1.
+      - source_labels: [__name__]
+        regex: rabbitmq_(identity|build)_info
+        action: drop

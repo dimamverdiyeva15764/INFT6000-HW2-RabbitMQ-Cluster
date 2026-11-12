@@ -1,0 +1,51 @@
+@startuml container-diagram
+' C4 Level 2 - Container diagram (owner: P2). Matches docker-compose.yml and monitoring/.
+' Render: paste into https://www.plantuml.com/plantuml  or  java -jar plantuml.jar -tpng container-diagram.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.11.0/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+title Container diagram - Distributed AMQP Messaging Cluster (INFT6000 HW2)
+
+Person(ops, "Operator", "Team member running tests and watching the cluster")
+
+System_Boundary(sys, "Distributed AMQP Messaging Cluster") {
+  Container(prod, "Producer app", "Python 3, pika", "Multi-threaded publisher, publisher confirms, failover across 5672/5673/5674 (P3, producer/)")
+  Container(tools, "Management & benchmark tools", "bash, Python 3", "scripts/mgmt/* status + health check, benchmarks/run_bench.py + analyze.py (P2)")
+  Container(cons, "Consumer app", "Python 3, pika", "Multi-threaded consumer, manual acks, failover, writes received.csv (P4, consumer/)")
+
+  Container(r1, "rabbit1", "RabbitMQ 3.13.7 (Erlang 26)", "Broker node. AMQP 5672, Management UI/API 15672, metrics 15692. Replica of hw2.orders")
+  Container(r2, "rabbit2", "RabbitMQ 3.13.7 (Erlang 26)", "Broker node. AMQP 5672, Management UI/API 15672, metrics 15692. Replica of hw2.orders")
+  Container(r3, "rabbit3", "RabbitMQ 3.13.7 (Erlang 26)", "Broker node. AMQP 5672, Management UI/API 15672, metrics 15692. Replica of hw2.orders")
+
+  ContainerQueue(raft, "Raft sync layer (quorum queue hw2.orders)", "Ra / Raft over Erlang distribution :25672", "1 leader + 2 followers. A publish is confirmed after 2 of 3 replicas wrote it. New leader elected automatically when the leader fails; pause_minority stops an isolated node")
+
+  Container(prom, "Prometheus", "prom/prometheus v2.53.0", "Scrapes all 3 nodes every 5 s (/metrics and /metrics/detailed), evaluates 8 alert rules")
+  Container(graf, "Grafana", "grafana/grafana 11.1.0", "Provisioned dashboards: HW2 overview, RabbitMQ-Overview, Quorum-Queues-Raft")
+}
+
+Rel(prod, r1, "Publishes to hw2.orders (default exchange), waits for confirms", "AMQP 0-9-1 via any host port 5672/5673/5674")
+Rel(cons, r3, "Consumes, acks after processing", "AMQP 0-9-1 via any host port 5672/5673/5674")
+Rel(tools, r2, "Health, leaders, purge queue", "HTTP API 15672-15674, rabbitmqctl")
+Rel(tools, prod, "Starts with scenario flags")
+Rel(tools, cons, "Starts / stops (SIGINT)")
+
+Rel(r1, raft, "Replicates log, votes", ":25672")
+Rel(r2, raft, "Replicates log, votes", ":25672")
+Rel(r3, raft, "Replicates log, votes", ":25672")
+
+Rel_U(prom, r1, "Scrapes", "HTTP :15692")
+Rel_U(prom, r2, "Scrapes", "HTTP :15692")
+Rel_U(prom, r3, "Scrapes", "HTTP :15692")
+Rel_L(graf, prom, "PromQL queries", "HTTP :9090")
+
+Rel(ops, tools, "Runs")
+Rel(ops, graf, "Watches dashboards", "HTTP :3000")
+
+
+
+Lay_R(r1, r2)
+Lay_R(r2, r3)
+Lay_D(raft, prom)
+
+SHOW_LEGEND()
+@enduml

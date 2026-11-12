@@ -1,0 +1,10 @@
+Status of quorum queue hw2.orders on node rabbit@rabbit1 ...
+(0lqqqqqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqwqqqqqqwqqqqqqqqqqqqqqqqqk(B
+(0x(B [1mNode Name[0m      (0x(B [1mRaft State[0m (0x(B [1mMembership[0m (0x(B [1mLast Log Index[0m (0x(B [1mLast Written[0m (0x(B [1mLast Applied[0m (0x(B [1mCommit Index[0m (0x(B [1mSnapshot Index[0m (0x(B [1mTerm[0m (0x(B [1mMachine Version[0m (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit1 (0x(B leader     (0x(B voter      (0x(B 178243         (0x(B 178243       (0x(B 178243       (0x(B 178243       (0x(B 172086         (0x(B 5    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit2 (0x(B follower   (0x(B voter      (0x(B 178243         (0x(B 178243       (0x(B 178243       (0x(B 178243       (0x(B 172086         (0x(B 5    (0x(B 3               (0x(B
+(0tqqqqqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqnqqqqqqqqqqqqqqqqnqqqqqqnqqqqqqqqqqqqqqqqqu(B
+(0x(B rabbit@rabbit3 (0x(B follower   (0x(B voter      (0x(B 178243         (0x(B 178243       (0x(B 178243       (0x(B 178243       (0x(B 172086         (0x(B 5    (0x(B 3               (0x(B
+(0mqqqqqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqvqqqqqqvqqqqqqqqqqqqqqqqqj(B

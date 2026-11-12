@@ -1,0 +1,1 @@
+victim=rabbit2 hosts=localhost:5673,localhost:5672,localhost:5674

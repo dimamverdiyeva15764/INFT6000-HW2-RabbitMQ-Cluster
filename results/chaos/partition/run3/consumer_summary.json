@@ -1,0 +1,12 @@
+{
+  "received": 18174,
+  "unique": 18174,
+  "duplicates": 0,
+  "redelivered": 100,
+  "out_of_order": 0,
+  "nacked": 0,
+  "reconnects": 1,
+  "elapsed_s": 111.079,
+  "errors": [],
+  "status": "ok"
+}

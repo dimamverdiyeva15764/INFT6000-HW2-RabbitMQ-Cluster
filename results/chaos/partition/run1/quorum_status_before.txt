@@ -1,0 +1,4 @@
+Node Name           Raft State          Membership          Last Log Index      Commit Index        Term              
+rabbit@rabbit1      follower            voter               1024595             1024594             15                
+rabbit@rabbit2      follower            voter               1024595             1024594             15                
+rabbit@rabbit3      leader              voter               1024595             1024595             15                
